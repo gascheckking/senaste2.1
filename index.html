@@ -1800,7 +1800,7 @@
                  autoConnect: true, 
                  connectors: [
                      walletConnectConnector, // WalletConnect first
-                     new wagmi.InjectedConnector({ chains: [base] }), // Then Injected (MetaMask etc.)
+                     new wagmi.connectors.InjectedConnector({ chains: [base] }), // Then Injected (MetaMask etc.)
                  ].filter(Boolean), // Filter out null connectors if any failed (e.g., if wagmi.connectors was undefined)
                  provider: ({ chainId }) => viem.createPublicClient({ 
                      chain: base, 
