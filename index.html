@@ -7,21 +7,54 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-  <script>
-    // --- VIEM LIBRARY CODE (viem@1.14.2/dist/viem.umd.js) GOES HERE ---
-    window.viem = {
-      createPublicClient: function (config) {
-        return {
-          chain: config.chain,
-          transport: config.transport,
-          request: (args) => Promise.resolve({ result: 'mocked viem response' }),
-        };
-      }
-    };
-  </script>
+ <script>
+  // --- VIEM LIBRARY CODE (viem@1.14.2/dist/viem.umd.js) GOES HERE ---
+  // ✅ Replace this comment with FULL raw contents of viem.umd.js
+</script>
 
-  <script>
-    // --- WAGMI LIBRARY CODE (wagmi@1.3.6/dist/wagmi.umd.js) GOES HERE ---
+<script>
+  // --- WAGMI LIBRARY CODE (wagmi@1.3.6/dist/wagmi.umd.js) GOES HERE ---
+  // ✅ Replace this comment with FULL raw contents of wagmi.umd.js
+</script>
+
+<script>
+  // Wait for both Wagmi and Viem to be loaded
+  function waitForWagmiAndViem(retry = 0) {
+    if (
+      typeof wagmi !== 'undefined' &&
+      typeof wagmi.createClient === 'function' &&
+      typeof viem !== 'undefined' &&
+      typeof viem.createPublicClient === 'function'
+    ) {
+      initializeWagmi();
+    } else if (retry < 10) {
+      console.log("Waiting for wagmi and viem...");
+      setTimeout(() => waitForWagmiAndViem(retry + 1), 300);
+    } else {
+      console.error("❌ Timeout waiting for wagmi and viem to load.");
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    waitForWagmiAndViem();
+  });
+</script>
+
+<script>
+  // Replace connector init in initializeWagmi():
+  config = wagmi.createClient({
+    autoConnect: true,
+    connectors: [
+      walletConnectConnector,
+      new wagmi.InjectedConnector({ chains: [base] })
+    ].filter(Boolean),
+    provider: ({ chainId }) => viem.createPublicClient({
+      chain: base,
+      transport: viem.http()
+    })
+  });
+</script>
+  // --- WAGMI LIBRARY CODE (wagmi@1.3.6/dist/wagmi.umd.js) GOES HERE ---
     window.wagmi = {
       createClient: function (config) {
         return {
