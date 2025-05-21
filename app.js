@@ -1,5 +1,3 @@
-// app.js
-
 document.addEventListener("DOMContentLoaded", () => {
   const walletStatus = document.getElementById("walletAddress");
   const connectBtn = document.getElementById("connectBtn");
@@ -11,14 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let userAddress = null;
 
-  // Wallet Connect (native, no wagmi)
   connectBtn.addEventListener("click", async () => {
     if (window.ethereum) {
       try {
         const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
         userAddress = accounts[0];
         walletStatus.innerText = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
-      } catch (error) {
+      } catch {
         walletStatus.innerText = "Connection failed.";
       }
     } else {
@@ -26,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Fetch gas data
   async function fetchGas() {
     try {
       const res = await fetch("https://api.owlracle.info/v4/base/gas");
@@ -39,22 +35,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   fetchGas();
-  setInterval(fetchGas, 15000); // update every 15s
+  setInterval(fetchGas, 15000);
 
-  // Dummy leaderboard
   const dummyLeaders = ["Spawniz", "0x1234", "BaseLord", "ZoraMaxxer"];
   leaderboardList.innerHTML = dummyLeaders.map((n, i) => `<li>#${i + 1} – ${n}</li>`).join("");
 
-  // Dummy activity
   const dummyActivity = ["Minted token X", "Claimed rewards", "Bought WarpAI"];
   activityList.innerHTML = dummyActivity.map(a => `<li>${a}</li>`).join("");
 
-  // Dummy buy button (no tx)
   buyBtn.addEventListener("click", () => {
     const amt = document.getElementById("tokenAmount").value;
     if (!userAddress) return buyStatus.innerText = "Connect wallet first.";
     if (!amt) return buyStatus.innerText = "Enter amount.";
-
     buyStatus.innerHTML = `Simulating buy of ${amt} ETH worth of WarpAI...`;
     setTimeout(() => {
       buyStatus.innerHTML = `<span style="color:green;">Success (mocked)</span>`;
