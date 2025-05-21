@@ -13,14 +13,9 @@
 <body data-theme="dark">
   <header class="app-header">
     <div class="header-content">
-      <div class="logo-network">
-        <div class="logo-main">
-          <span class="logo-symbol">✨</span> WarpAI
-        </div>
-        <div class="network-line-v"></div>
-        <div class="network-line-h"></div>
+      <div class="logo-main">
+        <span class="logo-symbol">✨</span> WarpAI
       </div>
-      <div class="header-title">Onchain Activity Tracker</div>
       <div class="wallet-section">
         <div class="xp-badge" id="xpDisplay">0 XP 🔥</div>
         <button class="connect-btn" id="connectWallet">Connect Wallet</button>
@@ -31,12 +26,21 @@
             <span class="streak-icon">🔥</span>
             <span id="headerStreak">0</span>
           </span>
-          <i class="fas fa-cog settings-icon" id="settingsIconConnected" title="Settings"></i>
         </div>
-        <i class="fas fa-cog settings-icon" id="settingsIconDisconnected" title="Settings"></i>
       </div>
     </div>
   </header>
+
+  <main class="main-content">
+    <section id="home" class="tab-content active">
+      <div class="card main-activity-card">
+        <h2>📊 Your Onchain Activity</h2>
+        <div id="transactionFeed" class="transaction-feed">
+          <!-- Transactions will be loaded here -->
+        </div>
+      </div>
+    </section>
+  </main>
 
   <nav class="footer-nav">
     <button class="footer-tab active" data-tab="home" title="Home">
@@ -58,76 +62,6 @@
       <i class="fas fa-user-plus"></i><span>Invite</span>
     </button>
   </nav>
-
-  <main class="main-content">
-    <section id="home" class="tab-content active">
-      <div class="grid-container">
-        <div class="card gas-card">
-          <h2>⛽ Base Gas Fee</h2>
-          <div class="gas-meter">
-            <div class="gas-progress" id="gasProgress"></div>
-            <div class="gas-labels">
-              <span>Low</span><span>Avg</span><span>High</span>
-            </div>
-            <div class="gas-value" id="gasValue">0 Gwei ($0.00)</div>
-          </div>
-          <p style="font-size: 0.65rem; color: #aaa; text-align: center; margin-top: 0.6rem;">Displays current gas fee on the Base network.</p>
-        </div>
-
-        <div class="card points-card">
-          <h2>🪙 WarpPoints</h2>
-          <div class="points-display">
-            <span id="warpPoints">0</span> WP
-            <button class="buy-btn" id="buyWP">Buy WP</button>
-          </div>
-          <p style="font-size: 0.65rem; color: #aaa; text-align: center; margin-top: 0.6rem;">Earn WarpPoints through onchain activity.</p>
-        </div>
-
-        <div class="card earnings-card">
-          <h2>💰 Earnings</h2>
-          <div class="earnings-display">
-            <div class="earnings-summary">
-              <div class="earning positive">+$0.82 <span class="label">Profit</span></div>
-              <div class="earning negative">-$0.12 <span class="label">Fees</span></div>
-            </div>
-            <div class="earnings-breakdown">
-              <p>Today: +$0.10 (Fees: -$0.01)</p>
-              <p>Last 7 Days: +$0.50 (Fees: -$0.05)</p>
-              <p>Last 30 Days: +$0.82 (Fees: -$0.12)</p>
-            </div>
-          </div>
-          <p style="font-size: 0.65rem; color: #aaa; text-align: center; margin-top: 0.6rem;">Mock data – real-time tracking coming soon.</p>
-        </div>
-      </div>
-
-      <div class="card main-activity-card">
-        <h2>📊 Your Onchain Overview</h2>
-        <div class="overview-stats-grid">
-          <div class="stat-box">
-            <h3>Gas Fees Paid (30D)</h3>
-            <div class="stat-value">$X.XX</div>
-            <div class="stat-details">Base: $Y.YY<br>ETH: $Z.ZZ</div>
-          </div>
-          <div class="stat-box">
-            <h3>Successful Mints/Trades</h3>
-            <div class="stat-value">N</div>
-            <div class="stat-details">Mints: N<br>Trades: N</div>
-          </div>
-          <div class="stat-box">
-            <h3>Total Volume (30D)</h3>
-            <div class="stat-value">$A.AA</div>
-            <div class="stat-details">Minted: $B.BB<br>Traded: $C.CC</div>
-          </div>
-          <div class="stat-box">
-            <h3>Most Active Day</h3>
-            <div class="stat-value">Date</div>
-            <div class="stat-details">TX Count: N<br>Gas Spent: $D.DD</div>
-          </div>
-        </div>
-        <p style="font-size: 0.7rem; color: #aaa; text-align: center; margin-top: 1rem;">Real-time data and analytics will appear here. (Mock data)</p>
-      </div>
-    </section>
-  </main>
 
   <script src="app.js"></script>
 </body>
