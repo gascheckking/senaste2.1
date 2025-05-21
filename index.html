@@ -116,35 +116,37 @@
 
   <body>
     <main>
-      <div style="text-align:center; margin-bottom:1rem;">
-        <h1 class="brand">WarpAI</h1>
-        <h3>Onchain Activity</h3>
-        <p style="color:var(--muted); margin-top:-0.5rem;">Track your wallet, XP & gas fees</p>
-      </div>
+      <section id="home" class="tab-section">
+        <div style="text-align:center; margin-bottom:1rem;">
+          <h1 class="brand">WarpAI</h1>
+          <h3>Onchain Activity</h3>
+          <p style="color:var(--muted); margin-top:-0.5rem;">Track your wallet, XP & gas fees</p>
+        </div>
 
-      <div class="card-grid">
-        <div class="card" onclick="loadGas()">
-          <div class="emoji">👛</div>
-          <strong>Wallet</strong>
-          <div id="gasInfo" style="margin-top:4px;">Tap to load gas</div>
-          <div class="bar" id="gasBar"></div>
+        <div class="card-grid">
+          <div class="card" onclick="loadGas()">
+            <div class="emoji">👛</div>
+            <strong>Wallet</strong>
+            <div id="gasInfo" style="margin-top:4px;">Tap to load gas</div>
+            <div class="bar" id="gasBar"></div>
+          </div>
+          <div class="card" onclick="claimXP()">
+            <div class="emoji">🎁</div>
+            <strong>Claim</strong>
+            <div id="xpInfo" style="margin-top:4px;">Tap to claim XP</div>
+            <div class="bar" id="xpBar" style="background:var(--warning);"></div>
+          </div>
+          <div class="card" onclick="showSnapshot()">
+            <div class="emoji">📍</div>
+            <strong>Track</strong>
+            <div style="margin-top:4px;">Snapshot your XP</div>
+          </div>
         </div>
-        <div class="card" onclick="claimXP()">
-          <div class="emoji">🏱</div>
-          <strong>Claim</strong>
-          <div id="xpInfo" style="margin-top:4px;">Tap to claim XP</div>
-          <div class="bar" id="xpBar" style="background:var(--warning);"></div>
-        </div>
-        <div class="card" onclick="showSnapshot()">
-          <div class="emoji">📍</div>
-          <strong>Track</strong>
-          <div style="margin-top:4px;">Snapshot your XP</div>
-        </div>
-      </div>
 
-      <section>
-        <h3>📊 Overview</h3>
-        <p id="overviewText">Your activity will show up here after interacting.</p>
+        <section>
+          <h3>📊 Overview</h3>
+          <p id="overviewText">Your activity will show up here after interacting.</p>
+        </section>
       </section>
 
       <section id="track" class="tab-section" style="display:none;">
@@ -190,7 +192,6 @@
       function switchTab(tab) {
         document.querySelectorAll(".tab-section").forEach(el => el.style.display = "none");
         document.querySelectorAll("nav a").forEach(el => el.classList.remove("active"));
-        if (tab === "home") return location.reload();
         document.getElementById(tab).style.display = "block";
         document.querySelectorAll("nav a").forEach(el => {
           if (el.onclick.toString().includes(tab)) el.classList.add("active");
