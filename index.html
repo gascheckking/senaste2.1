@@ -38,27 +38,6 @@
     </div>
   </header>
 
-  <nav class="footer-nav">
-    <button class="footer-tab active" data-tab="home" title="Home">
-      <i class="fas fa-home"></i><span>Home</span>
-    </button>
-    <button class="footer-tab" data-tab="track" title="Track">
-      <i class="fas fa-chart-line"></i><span>Track</span>
-    </button>
-    <button class="footer-tab" data-tab="leaderboard" title="Leaderboard">
-      <i class="fas fa-trophy"></i><span>Leaderboard</span>
-    </button>
-    <button class="footer-tab" data-tab="rewards" title="Rewards">
-      <i class="fas fa-gift"></i><span>Rewards</span>
-    </button>
-    <button class="footer-tab" data-tab="profile" title="Profile">
-      <i class="fas fa-user"></i><span>Profile</span>
-    </button>
-    <button class="footer-tab" data-tab="invite" title="Invite">
-      <i class="fas fa-user-plus"></i><span>Invite</span>
-    </button>
-  </nav>
-
   <main class="main-content">
     <section id="home" class="tab-content active">
       <div class="grid-container">
@@ -71,7 +50,7 @@
             </div>
             <div class="gas-value" id="gasValue">0 Gwei ($0.00)</div>
           </div>
-          <p style="font-size: 0.65rem; color: #aaa; text-align: center; margin-top: 0.6rem;">Displays current gas fee on the Base network.</p>
+          <p class="info-text">Displays current gas fee on the Base network.</p>
         </div>
 
         <div class="card points-card">
@@ -80,7 +59,7 @@
             <span id="warpPoints">0</span> WP
             <button class="buy-btn" id="buyWP">Buy WP</button>
           </div>
-          <p style="font-size: 0.65rem; color: #aaa; text-align: center; margin-top: 0.6rem;">Earn WarpPoints through onchain activity.</p>
+          <p class="info-text">Earn WarpPoints through onchain activity.</p>
         </div>
 
         <div class="card earnings-card">
@@ -96,7 +75,7 @@
               <p>Last 30 Days: +$0.82 (Fees: -$0.12)</p>
             </div>
           </div>
-          <p style="font-size: 0.65rem; color: #aaa; text-align: center; margin-top: 0.6rem;">Mock data – real-time tracking coming soon.</p>
+          <p class="info-text">Mock data – real-time tracking coming soon.</p>
         </div>
       </div>
 
@@ -124,12 +103,31 @@
             <div class="stat-details">TX Count: N<br>Gas Spent: $D.DD</div>
           </div>
         </div>
-        <p style="font-size: 0.7rem; color: #aaa; text-align: center; margin-top: 1rem;">Real-time data and analytics will appear here. (Mock data)</p>
+        <p class="info-text">Real-time data and analytics will appear here. (Mock data)</p>
       </div>
     </section>
-
-    <!-- Du har resterande sektioner (track, leaderboard, rewards, profile, invite, settings) i JS och app.js -->
   </main>
+
+  <nav class="footer-nav">
+    <button class="footer-tab active" data-tab="home" title="Home">
+      <i class="fas fa-home"></i><span>Home</span>
+    </button>
+    <button class="footer-tab" data-tab="track" title="Track">
+      <i class="fas fa-chart-line"></i><span>Track</span>
+    </button>
+    <button class="footer-tab" data-tab="leaderboard" title="Leaderboard">
+      <i class="fas fa-trophy"></i><span>Leaderboard</span>
+    </button>
+    <button class="footer-tab" data-tab="rewards" title="Rewards">
+      <i class="fas fa-gift"></i><span>Rewards</span>
+    </button>
+    <button class="footer-tab" data-tab="profile" title="Profile">
+      <i class="fas fa-user"></i><span>Profile</span>
+    </button>
+    <button class="footer-tab" data-tab="invite" title="Invite">
+      <i class="fas fa-user-plus"></i><span>Invite</span>
+    </button>
+  </nav>
 
   <script src="app.js"></script>
 </body>
