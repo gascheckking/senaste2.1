@@ -1,66 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WarpAI – Onchain Tracker</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="app.js"></script>
-</head>
-<body>
-  <header>
-    <h1>WarpAI</h1>
-    <p>Track your onchain activity</p>
-    <button id="connectBtn">Connect Wallet</button>
-    <p id="walletAddress"></p>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WarpAI – Onchain Activity</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+    <style>
+      :root {
+        --accent: #6366f1;
+        --bg: #0d0d0d;
+        --card: #1a1a1a;
+        --text: #e5e5e5;
+        --muted: #888;
+        --success: #10b981;
+        --warning: #f59e0b;
+      }
 
-  <main>
-    <section>
-      <h2>Base Gas Fee</h2>
-      <p id="gasTracker">⛽ Current gas: <strong>loading...</strong></p>
-    </section>
+      body {
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: system-ui, sans-serif;
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
 
-    <section>
-      <h2>WarpPoints</h2>
-      <p>You’ve earned <strong>275 WP</strong></p>
-    </section>
+      h1, h2, h3 {
+        margin: 0.5rem 0;
+        text-align: center;
+      }
 
-    <section>
-      <h2>Earnings</h2>
-      <p>Total profit: <strong>+0.82 ETH</strong></p>
-    </section>
+      .brand {
+        color: var(--accent);
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
 
-    <section>
-      <h2>Buy WarpAI</h2>
-      <input type="number" id="tokenAmount" placeholder="Amount in ETH" />
-      <button id="buyTokenBtn">Buy</button>
-      <p id="buyStatus"></p>
-    </section>
+      .card-grid {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: space-between;
+        margin: 1rem 0;
+      }
 
-    <section>
-      <h2>Recent Activity</h2>
-      <ul id="activityList"></ul>
-    </section>
+      .card {
+        background: var(--card);
+        border-radius: 12px;
+        padding: 0.8rem;
+        flex: 1;
+        text-align: center;
+        font-size: 0.9rem;
+      }
 
-    <section>
-      <h2>Leaderboard</h2>
-      <ul id="leaderboardList"></ul>
-    </section>
-  </main>
+      .card .emoji {
+        font-size: 1.4rem;
+      }
 
-  <nav class="footer-nav">
-    <button class="active"><i class="fas fa-home"></i><span>Home</span></button>
-    <button><i class="fas fa-bolt"></i><span>Track</span></button>
-    <button><i class="fas fa-trophy"></i><span>Leaderboard</span></button>
-    <button><i class="fas fa-gift"></i><span>Rewards</span></button>
-    <button><i class="fas fa-user"></i><span>Profile</span></button>
-  </nav>
+      .bar {
+        height: 6px;
+        background: var(--success);
+        border-radius: 4px;
+        width: 0%;
+        margin-top: 0.5rem;
+        transition: width 0.4s;
+      }
 
-  <footer>
-    &copy; 2025 WarpAI. All rights reserved.
-  </footer>
-</body>
+      section {
+        background: var(--card);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-top: 1rem;
+      }
+
+      nav {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        max-width: 480px;
+        background: #000;
+        border-top: 1px solid #222;
+        display: flex;
+        justify-content: space-around;
+        padding: 0.4rem 0;
+      }
+
+      nav a {
+        text-align: center;
+        font-size: 0.75rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      nav a.active {
+        color: var(--accent);
+        font-weight: bold;
+      }
+
+      .button {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        padding: 0.6rem;
+        border-radius: 8px;
+        font-weight: bold;
+        margin-top: 0.8rem;
+      }
+
+      .placeholder {
+        text-align: center;
+        color: var(--muted);
+        padding: 1rem 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <div style="text-align:center; margin-bottom:1rem;">
+        <h1 class="brand">WarpAI</h1>
+        <h3>Onchain Activity</h3>
+        <p style="color:var(--muted); margin-top:-0.5rem;">Track your wallet, XP & gas fees</p>
+      </div>
+
+      <div class="card-grid">
+        <div class="card" onclick="loadGas()">
+          <div class="emoji">👛</div>
+          <strong>Wallet</strong>
+          <div id="gasInfo" style="margin-top:4px;">Tap to load gas</div>
+          <div class="bar" id="gasBar"></div>
+        </div>
+        <div class="card" onclick="claimXP()">
+          <div class="emoji">🏱</div>
+          <strong>Claim</strong>
+          <div id="xpInfo" style="margin-top:4px;">Tap to claim XP</div>
+          <div class="bar" id="xpBar" style="background:var(--warning);"></div>
+        </div>
+        <div class="card" onclick="showSnapshot()">
+          <div class="emoji">📍</div>
+          <strong>Track</strong>
+          <div style="margin-top:4px;">Snapshot your XP</div>
+        </div>
+      </div>
+
+      <section>
+        <h3>📊 Overview</h3>
+        <p id="overviewText">Your activity will show up here after interacting.</p>
+      </section>
+
+      <section id="track" class="tab-section" style="display:none;">
+        <h3>📈 Tracking</h3>
+        <p>Transactions: 12</p>
+        <p>Gas Spent: 0.0021 ETH</p>
+        <p>Active Days: 4/7</p>
+      </section>
+
+      <section id="stats" class="tab-section" style="display:none;">
+        <h3>🏆 Leaderboard</h3>
+        <p>1. @crypto_og — 1 420 XP</p>
+        <p>2. @degen — 1 205 XP</p>
+        <p>3. @you — 900 XP</p>
+        <hr />
+        <h3>🎖️ Your Rewards</h3>
+        <p>Connect wallet to check status</p>
+        <button class="button" onclick="checkToken()">Check Supporter</button>
+      </section>
+
+      <section id="token" class="tab-section" style="display:none;">
+        <h3>🔗 Warp Token</h3>
+        <p><strong>Symbol:</strong> $WARP<br /><strong>Contract:</strong> 0x0cd1…0482</p>
+        <a class="button" href="https://zora.co/collect/base:0x0cd1e9c691af8d4d34efcc089a40b31c691d0482" target="_blank">Buy on Zora</a>
+      </section>
+
+      <section id="profile" class="tab-section" style="display:none;">
+        <h3>👤 Profile</h3>
+        <p>Connect wallet to view stats</p>
+        <button class="button">Connect Wallet</button>
+      </section>
+    </main>
+
+    <nav>
+      <a href="#" onclick="switchTab('home')" class="active">🏠<br />Home</a>
+      <a href="#" onclick="switchTab('track')">📈<br />Track</a>
+      <a href="#" onclick="switchTab('stats')">📊<br />Stats</a>
+      <a href="#" onclick="switchTab('token')">🔗<br />Token</a>
+      <a href="#" onclick="switchTab('profile')">👤<br />Profile</a>
+    </nav>
+
+    <script>
+      function switchTab(tab) {
+        document.querySelectorAll(".tab-section").forEach(el => el.style.display = "none");
+        document.querySelectorAll("nav a").forEach(el => el.classList.remove("active"));
+        if (tab === "home") return location.reload();
+        document.getElementById(tab).style.display = "block";
+        document.querySelectorAll("nav a").forEach(el => {
+          if (el.onclick.toString().includes(tab)) el.classList.add("active");
+        });
+      }
+
+      async function loadGas() {
+        const gasInfo = document.getElementById("gasInfo");
+        const gasBar = document.getElementById("gasBar");
+        gasInfo.innerText = "Loading...";
+        const res = await fetch("/api/gas");
+        const data = await res.json();
+        gasInfo.innerText = `${data.base.speeds[1].gasPrice} Gwei`;
+        gasBar.style.width = "30%";
+      }
+
+      async function claimXP() {
+        const addr = prompt("Enter wallet address:");
+        const res = await fetch("/api/claim-xp", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({ address: addr })
+        });
+        const data = await res.json();
+        document.getElementById("xpInfo").innerText = `${data.streak}d | ${data.xp} XP`;
+        document.getElementById("xpBar").style.width = Math.min(data.streak * 10, 100) + "%";
+        document.getElementById("overviewText").innerText = `You claimed ${data.xp} XP with a ${data.streak}-day streak.`;
+      }
+
+      async function checkToken() {
+        const addr = prompt("Enter wallet address:");
+        const res = await fetch(`/api/check-token?address=${addr}`);
+        const data = await res.json();
+        const rewardText = data.eligibleForRewards
+          ? `✅ Early Supporter since ${data.ogSince}`
+          : `❌ No Warp token detected.`;
+        alert(rewardText);
+      }
+
+      function showSnapshot() {
+        const addr = prompt("Enter wallet address:");
+        if (addr) window.open(`/api/snapshot/${addr}`, "_blank");
+      }
+    </script>
+  </body>
 </html>
