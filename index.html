@@ -3,178 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WarpAI – Onchain Activity</title>
+  <title>WarpAI – Onchain Tracker</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <script defer src="app.js"></script>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #0d0d0d;
-      color: #fff;
-    }
-    .container {
-      padding: 1rem;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    h1, h2, h3 {
-      margin: 0.5rem 0;
-      text-align: center;
-    }
-    .header {
-      margin-bottom: 1rem;
-    }
-    .header h1 {
-      color: #6366f1;
-      font-size: 1.8rem;
-    }
-    .header p {
-      color: #aaa;
-      font-size: 0.9rem;
-    }
-    .card-grid {
-      display: flex;
-      gap: 0.6rem;
-      justify-content: space-between;
-      margin-top: 1.5rem;
-    }
-    .card {
-      flex: 1;
-      background: #1a1a1a;
-      border-radius: 14px;
-      padding: 1rem 0.6rem;
-      text-align: center;
-      font-size: 0.85rem;
-    }
-    .card .emoji {
-      font-size: 1.4rem;
-      margin-bottom: 0.3rem;
-    }
-    section {
-      background: #1c1c1c;
-      border-radius: 12px;
-      padding: 1rem;
-      margin-top: 1.5rem;
-    }
-    nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      max-width: 500px;
-      background: #000;
-      border-top: 1px solid #222;
-      display: flex;
-      justify-content: space-around;
-      padding: 0.5rem 0;
-    }
-    nav a {
-      color: #aaa;
-      font-size: 0.75rem;
-      text-align: center;
-      text-decoration: none;
-    }
-    nav a.active {
-      color: #6366f1;
-      font-weight: bold;
-    }
-    .button {
-      margin-top: 0.8rem;
-      display: block;
-      width: 100%;
-      text-align: center;
-      background: #6366f1;
-      color: white;
-      padding: 0.6rem;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-    }
-    .tab-section { display: none; }
-    .tab-section.active { display: block; }
-  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>WarpAI</h1>
-      <h3>Onchain Activity</h3>
-      <p>Track your wallet, XP & gas fees</p>
-    </div>
+  <header>
+    <h1>WarpAI</h1>
+    <p>Track your onchain activity</p>
+    <button id="connectBtn">Connect Wallet</button>
+    <p id="walletAddress">Not connected</p>
+  </header>
 
-    <div class="card-grid">
-      <div class="card" onclick="loadGas()">
-        <div class="emoji">👛</div>
-        <strong>Wallet</strong>
-        <div id="gasInfo" style="margin-top:4px;">Tap to load gas</div>
-      </div>
-      <div class="card" onclick="claimXP()">
-        <div class="emoji">🎁</div>
-        <strong>Claim</strong>
-        <div id="xpInfo" style="margin-top:4px;">Tap to claim XP</div>
-      </div>
-      <div class="card" onclick="showSnapshot()">
-        <div class="emoji">📍</div>
-        <strong>Track</strong>
-        <div style="margin-top:4px;">Snapshot your XP</div>
-      </div>
-    </div>
-
-    <section id="home" class="tab-section active">
-      <h3>📊 Overview</h3>
-      <p id="overviewText">Your activity will show up here after interacting.</p>
+  <main>
+    <section>
+      <h2>Base Gas Fee</h2>
+      <p id="gasTracker">⛽ Loading gas...</p>
     </section>
 
-    <section id="track" class="tab-section">
-      <h3>📈 Tracking</h3>
-      <p>Transactions: 12</p>
-      <p>Gas Spent: 0.0021 ETH</p>
-      <p>Active Days: 4/7</p>
+    <section>
+      <h2>WarpPoints</h2>
+      <p>You’ve earned <strong>275 WP</strong></p>
     </section>
 
-    <section id="stats" class="tab-section">
-      <h3>🏆 Leaderboard</h3>
-      <p>1. @crypto_og — 1 420 XP</p>
-      <p>2. @degen — 1 205 XP</p>
-      <p>3. @you — 900 XP</p>
-      <hr />
-      <h3>🎖️ Your Rewards</h3>
-      <p>Connect wallet to check status</p>
-      <button class="button" onclick="checkToken()">Check Supporter</button>
+    <section>
+      <h2>Earnings</h2>
+      <p>Total profit: <strong>+0.82 ETH</strong></p>
     </section>
 
-    <section id="token" class="tab-section">
-      <h3>🔗 Warp Token</h3>
-      <p><strong>Symbol:</strong> $WARP<br /><strong>Contract:</strong> 0x0cd1…0482</p>
-      <a class="button" href="https://zora.co/collect/base:0x0cd1e9c691af8d4d34efcc089a40b31c691d0482" target="_blank">Buy on Zora</a>
+    <section>
+      <h2>Onchain Tracker</h2>
+      <ul id="activityList"></ul>
     </section>
 
-    <section id="profile" class="tab-section">
-      <h3>👤 Profile</h3>
-      <p>Connect wallet to view stats</p>
-      <button class="button">Connect Wallet</button>
+    <section>
+      <h2>Leaderboard</h2>
+      <ul id="leaderboardList"></ul>
     </section>
-  </div>
 
-  <nav>
-    <a href="#" onclick="switchTab('home')" class="active">🏠<br />Home</a>
-    <a href="#" onclick="switchTab('track')">📈<br />Track</a>
-    <a href="#" onclick="switchTab('stats')">📊<br />Stats</a>
-    <a href="#" onclick="switchTab('token')">🔗<br />Token</a>
-    <a href="#" onclick="switchTab('profile')">👤<br />Profile</a>
+    <section>
+      <h2>Buy WarpAI</h2>
+      <input type="number" id="tokenAmount" placeholder="ETH amount" />
+      <button id="buyTokenBtn">Simulate Buy</button>
+      <p id="buyStatus"></p>
+    </section>
+  </main>
+
+  <nav class="footer-nav">
+    <button class="active"><i class="fas fa-home"></i><span>Home</span></button>
+    <button><i class="fas fa-bolt"></i><span>Track</span></button>
+    <button><i class="fas fa-trophy"></i><span>Leaderboard</span></button>
+    <button><i class="fas fa-gift"></i><span>Rewards</span></button>
+    <button><i class="fas fa-user"></i><span>Profile</span></button>
   </nav>
 
-  <script>
-    function switchTab(tab) {
-      document.querySelectorAll(".tab-section").forEach(el => el.classList.remove("active"));
-      document.getElementById(tab).classList.add("active");
-      document.querySelectorAll("nav a").forEach(el => el.classList.remove("active"));
-      document.querySelectorAll("nav a").forEach(el => {
-        if (el.onclick.toString().includes(tab)) el.classList.add("active");
-      });
-    }
-  </script>
+  <footer>
+    &copy; 2025 WarpAI. All rights reserved.
+  </footer>
 </body>
 </html>
