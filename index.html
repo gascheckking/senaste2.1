@@ -2,66 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WarpAI – Onchain Activity Tracker</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
-  <header class="header">
-    <div class="logo">
-      <h1>✨ <span class="warp">WarpAI</span> <span class="tracker">Onchain Activity Tracker</span></h1>
+  <header class="app-header">
+    <div class="header-left">
+      <h1>✨ <span class="warpai">WarpAI</span> <span class="tracker-label">Onchain Tracker</span></h1>
     </div>
-    <div class="wallet-section">
-      <span id="xpDisplay">0 XP 🔥</span>
-      <button id="connectWallet">Connect Wallet</button>
+    <div class="header-right">
+      <div class="xp-display" id="xpDisplay">0 XP 🔥</div>
+      <button id="connectWallet" class="connect-btn">Connect Wallet</button>
     </div>
   </header>
 
-  <div id="gasTracker" class="gas-bar">Loading gas...</div>
-
   <main>
-    <section class="card">
-      <h2>Onchain Wallet Activity</h2>
-      <div class="activity">
-        <div>+2.50 ETH Earned</div>
-        <div>–1.23 ETH Spent</div>
-        <div>Minted Token #123 via Zora</div>
-        <button>Claim XP</button>
+    <section id="tracker" class="tab-section active">
+      <div class="card">
+        <h2>📊 Onchain Activity</h2>
+        <ul id="activityList" class="list"></ul>
       </div>
     </section>
 
-    <section class="card">
-      <h2>🔥 5 Day Streak</h2>
-      <div class="streak-bar">
-        <div class="bar green"></div>
-        <div class="bar yellow"></div>
-        <div class="bar red"></div>
+    <section id="mint" class="tab-section">
+      <div class="card">
+        <h2>🪙 Mint Token & Rewards</h2>
+        <input type="number" id="tokenAmount" placeholder="ETH amount" min="0" step="0.001" />
+        <button id="buyTokenBtn" class="buy-btn">Mint WarpAI Coin</button>
+        <p id="buyStatus" class="status"></p>
+        <ul id="rewardsList" class="list"></ul>
       </div>
     </section>
 
-    <section class="card">
-      <h2>QuickBuy & Mint Actions</h2>
-      <div class="buttons">
-        <button>Mint WarpAI Coin</button>
-        <button>Buy trending token</button>
-        <button>Bridge ETH from Mainnet</button>
+    <section id="leaderboard" class="tab-section">
+      <div class="card">
+        <h2>🏆 Leaderboard</h2>
+        <ol id="leaderboardList" class="list leaderboard"></ol>
       </div>
     </section>
 
-    <section class="card">
-      <h2>Favorites & Following</h2>
-      <p>Spawniz just minted XYZ → <a href="#">Mint now</a></p>
+    <section id="profile" class="tab-section">
+      <div class="card">
+        <h2>👤 Profile & Invite</h2>
+        <p><strong>Wallet:</strong> <span id="headerWalletAddress">Not connected</span></p>
+        <p><strong>XP Streak:</strong> <span id="streakDisplay">0 days</span></p>
+        <button id="inviteBtn" class="invite-btn">Invite Friends (+50 WP)</button>
+        <p id="inviteStatus" class="status"></p>
+      </div>
     </section>
   </main>
 
-  <footer class="footer-nav">
-    <button class="active">Overview</button>
-    <button>Wallet</button>
-    <button>Leaderboard</button>
-    <button>Rewards</button>
-    <button>Settings</button>
-  </footer>
+  <nav class="footer-nav">
+    <button class="tab-btn active" data-tab="tracker" onclick="switchTab('tracker')">🏠<span>Tracker</span></button>
+    <button class="tab-btn" data-tab="mint" onclick="switchTab('mint')">🪙<span>Mint</span></button>
+    <button class="tab-btn" data-tab="leaderboard" onclick="switchTab('leaderboard')">🏆<span>Leaderboard</span></button>
+    <button class="tab-btn" data-tab="profile" onclick="switchTab('profile')">👤<span>Profile</span></button>
+  </nav>
 
   <script src="app.js"></script>
 </body>
