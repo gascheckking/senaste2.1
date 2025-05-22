@@ -3,76 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WarpAI – Onchain Tracker</title>
+  <title>WarpAI – Onchain Activity Tracker</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
-  <header class="app-header">
-    <div class="header-left">
-      <h1>✨ <span class="warpai">WarpAI</span> <span class="tracker-label">Onchain Tracker</span></h1>
+  <header class="header">
+    <div class="logo">
+      <h1>✨ <span class="warp">WarpAI</span> <span class="tracker">Onchain Activity Tracker</span></h1>
     </div>
-    <div class="header-right">
-      <div class="xp-display" id="xpDisplay">0 XP 🔥</div>
-      <button id="connectWallet" class="connect-btn">Connect Wallet</button>
+    <div class="wallet-section">
+      <span id="xpDisplay">0 XP 🔥</span>
+      <button id="connectWallet">Connect Wallet</button>
     </div>
   </header>
 
-  <div class="gas-section" id="gasTracker">Loading gas...</div>
+  <div id="gasTracker" class="gas-bar">Loading gas...</div>
 
   <main>
-    <section id="home" class="tab-section">
-      <div class="card">
-        <h2>📊 Activity Feed</h2>
-        <ul id="activityList"></ul>
-      </div>
-      <div class="card">
-        <h2>🔥 Live Feed</h2>
-        <ul id="feedList"></ul>
-      </div>
-      <div class="card">
-        <h2>🥽 Gas Tracker</h2>
-        <div id="gasData">Loading...</div>
+    <section class="card">
+      <h2>Onchain Wallet Activity</h2>
+      <div class="activity">
+        <div>+2.50 ETH Earned</div>
+        <div>–1.23 ETH Spent</div>
+        <div>Minted Token #123 via Zora</div>
+        <button>Claim XP</button>
       </div>
     </section>
 
-    <section id="notifications" class="tab-section" style="display:none">
-      <div class="card">
-        <h2>🔔 Notifications</h2>
-        <p>No notifications yet.</p>
+    <section class="card">
+      <h2>🔥 5 Day Streak</h2>
+      <div class="streak-bar">
+        <div class="bar green"></div>
+        <div class="bar yellow"></div>
+        <div class="bar red"></div>
       </div>
     </section>
 
-    <section id="explore" class="tab-section" style="display:none">
-      <div class="card">
-        <h2>🧭 Explore</h2>
-        <p>Coming soon...</p>
+    <section class="card">
+      <h2>QuickBuy & Mint Actions</h2>
+      <div class="buttons">
+        <button>Mint WarpAI Coin</button>
+        <button>Buy trending token</button>
+        <button>Bridge ETH from Mainnet</button>
       </div>
     </section>
 
-    <section id="profile" class="tab-section" style="display:none">
-      <div class="card">
-        <h2>👤 Profile</h2>
-        <div id="connectedWalletInfo" style="display:none">
-          <p id="headerWalletAddress"></p>
-          <p id="streakDisplay">Streak: 0</p>
-        </div>
-      </div>
-      <div class="card">
-        <h2>🧪 Mint Tester</h2>
-        <input type="number" id="tokenAmount" placeholder="ETH amount" />
-        <button id="buyTokenBtn">Mint WarpAI Coin</button>
-        <p id="buyStatus"></p>
-      </div>
+    <section class="card">
+      <h2>Favorites & Following</h2>
+      <p>Spawniz just minted XYZ → <a href="#">Mint now</a></p>
     </section>
   </main>
 
-  <nav class="footer-nav">
-    <button class="tab-btn active" data-tab="home" onclick="switchTab('home')">🏠<span>Home</span></button>
-    <button class="tab-btn" data-tab="notifications" onclick="switchTab('notifications')">🔔<span>Notifications</span></button>
-    <button class="tab-btn" data-tab="explore" onclick="switchTab('explore')">🔍<span>Explore</span></button>
-    <button class="tab-btn" data-tab="profile" onclick="switchTab('profile')">👤<span>Profile</span></button>
-  </nav>
+  <footer class="footer-nav">
+    <button class="active">Overview</button>
+    <button>Wallet</button>
+    <button>Leaderboard</button>
+    <button>Rewards</button>
+    <button>Settings</button>
+  </footer>
 
   <script src="app.js"></script>
 </body>
