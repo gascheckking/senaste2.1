@@ -1,83 +1,97 @@
+
 body {
   margin: 0;
-  padding: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #0f0f0f;
-  color: #f0f0f0;
-  line-height: 1.6;
+  background: #0f0f0f;
+  color: #f5f5f5;
 }
 
-header {
-  padding: 1.2rem 1rem;
-  background: #141414;
-  border-bottom: 1px solid #333;
-  text-align: center;
-}
-
-header h1 {
-  font-size: 1.8rem;
-  margin: 0;
-}
-
-.connect-btn {
-  background: #00c67c;
-  border: none;
-  color: #fff;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.connect-btn:hover {
-  background: #00a868;
-}
-
-.main-content {
+.header {
+  background: #111;
   padding: 1rem;
-  max-width: 600px;
-  margin: 0 auto;
+  text-align: center;
+  border-bottom: 1px solid #222;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00c7ff;
+}
+
+.xp-info {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+button {
+  background: #00c67c;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #00a56a;
 }
 
 .card {
-  background: #1c1c1c;
-  border-radius: 8px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  margin: 1rem;
   padding: 1rem;
-  margin-bottom: 1rem;
 }
 
-.card h2 {
-  margin-top: 0;
-  font-size: 1.2rem;
+.green {
+  color: #00ff99;
+}
+
+.red {
+  color: #ff4d4d;
+}
+
+.gas-meter {
+  background: #111;
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.gas-bar {
+  height: 6px;
+  width: 60%;
+  background: linear-gradient(to right, #00ff99, #ffcc00, #ff3333);
+  border-radius: 4px;
+  margin: 0.4rem auto;
+}
+
+.gas-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #aaa;
 }
 
 .footer-nav {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: #141414;
-  border-top: 1px solid #222;
+  background: #111;
   display: flex;
   justify-content: space-around;
-  padding: 0.4rem 0;
-  z-index: 10;
+  border-top: 1px solid #333;
 }
 
 .footer-nav button {
-  background: none;
-  border: none;
-  color: #888;
-  font-size: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   flex: 1;
-  cursor: pointer;
-}
-
-.footer-nav button i {
-  font-size: 1.3rem;
-  margin-bottom: 0.2rem;
+  background: none;
+  color: #888;
+  border: none;
+  padding: 0.5rem 0;
+  font-size: 0.75rem;
 }
 
 .footer-nav button.active {
