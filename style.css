@@ -1,99 +1,98 @@
+:root {
+  --accent: #00c67c;
+  --bg: #0f0f0f;
+  --card: #1a1a1a;
+  --text: #f0f0f0;
+  --muted: #888;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #0f0f0f;
-  color: #f0f0f0;
-  line-height: 1.6;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 header {
-  padding: 1rem;
-  background: #141414;
+  background: #121212;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #222;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #333;
+  flex-wrap: wrap;
 }
 
-.header-left {
-  display: flex;
-  align-items: center;
-  font-size: 1.2rem;
+.logo-main {
+  font-size: 1.4rem;
   font-weight: bold;
-  color: #10ffb0;
+  color: var(--accent);
 }
 
-.header-left span {
-  color: #aaa;
-  font-weight: normal;
-  margin-left: 0.5rem;
+.header-title {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 4px;
 }
 
 .wallet-section {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .connect-btn {
-  background: #10ffb0;
+  background: var(--accent);
+  color: #fff;
   border: none;
   padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  color: #000;
-  font-weight: bold;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
   cursor: pointer;
+}
+
+.wallet-address-display {
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  color: #ccc;
 }
 
 .main-content {
   padding: 1rem;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
-section.card {
-  background: #1a1a1a;
+.card {
+  background: var(--card);
+  border-radius: 10px;
   padding: 1rem;
-  border-radius: 12px;
   margin-bottom: 1rem;
 }
 
 .card h2 {
   margin: 0 0 0.5rem;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  font-size: 1.1rem;
 }
 
-.card p {
-  font-size: 0.9rem;
-  color: #ccc;
+.transaction-feed,
+.activity-list,
+.leaderboard-list,
+.feed-list {
+  list-style: none;
+  padding: 0;
+  font-size: 0.85rem;
 }
 
-button.buy-btn,
-button.claim-btn {
-  background: #10ffb0;
-  border: none;
-  color: #000;
-  padding: 0.4rem 0.7rem;
-  margin-top: 0.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.gas-meter {
-  background: #222;
-  border-radius: 6px;
-  height: 10px;
-  margin: 0.5rem 0;
-  position: relative;
-}
-
-.gas-progress {
-  height: 100%;
-  background: linear-gradient(to right, #00ff99, #ffcc00, #ff3333);
-  width: 40%;
+.transaction-feed li,
+.activity-list li,
+.leaderboard-list li,
+.feed-list li {
+  margin-bottom: 0.5rem;
+  background: #181818;
+  padding: 0.5rem;
   border-radius: 6px;
 }
 
@@ -102,39 +101,18 @@ button.claim-btn {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #000;
-  border-top: 1px solid #333;
+  background: #111;
+  border-top: 1px solid #222;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   padding: 0.3rem 0;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .footer-tab {
   background: none;
   border: none;
-  color: #aaa;
+  color: #888;
   font-size: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-}
-
-.footer-tab i {
-  font-size: 1.4rem;
-}
-
-.footer-tab.active {
-  color: #10ffb0;
-  font-weight: bold;
-}
-
-.transaction-feed li,
-#activityList li,
-#feedList li,
-#leaderboardList li {
-  list-style: none;
-  padding: 0.3rem 0;
-  border-bottom: 1px solid #222;
-}
+  display
