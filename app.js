@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const leaderboardList = document.getElementById("leaderboardList");
   const buyBtn = document.getElementById("buyTokenBtn");
   const buyStatus = document.getElementById("buyStatus");
+  const feedList = document.getElementById("feedList");
+  const streakDisplay = document.getElementById("streakDisplay");
+  const xpDisplay = document.getElementById("xpDisplay");
 
   let userAddress = null;
 
@@ -39,14 +42,31 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchGas();
   setInterval(fetchGas, 15000);
 
-  const dummyLeaders = ["Spawniz", "0x1234", "BaseLord", "ZoraMaxxer"];
+  const dummyLeaders = [
+    { name: "Spawniz", xp: 350 },
+    { name: "BaseLord", xp: 290 },
+    { name: "ZoraMaxxer", xp: 220 }
+  ];
   if (leaderboardList) {
-    leaderboardList.innerHTML = dummyLeaders.map((n, i) => `<li>#${i + 1} – ${n}</li>`).join("");
+    leaderboardList.innerHTML = dummyLeaders.map((n, i) => `<li>#${i + 1} – ${n.name}: ${n.xp} XP</li>`).join("");
   }
 
-  const dummyActivity = ["Minted Token #123 via Zora", "Bought NFT on OpenSea", "Sent 0.001 ETH"];
+  const dummyActivity = [
+    "Jessepollak coined MemeX", 
+    "Spawniz minted GlitchLord", 
+    "You bought NFT for 0.003 ETH"
+  ];
   if (activityList) {
-    activityList.innerHTML = dummyActivity.map(a => `<li>📉 ${a}</li>`).join("");
+    activityList.innerHTML = dummyActivity.map(a => `<li>📈 ${a}</li>`).join("");
+  }
+
+  const dummyFeed = [
+    { user: "BaseLord", action: "minted Token A" },
+    { user: "ZoraMaxxer", action: "coined MemePack" },
+    { user: "Spawniz", action: "bought WarpNFT" }
+  ];
+  if (feedList) {
+    feedList.innerHTML = dummyFeed.map(f => `<li>🔥 <strong>${f.user}</strong> ${f.action}</li>`).join("");
   }
 
   if (buyBtn) {
@@ -54,11 +74,30 @@ document.addEventListener("DOMContentLoaded", () => {
       const amt = document.getElementById("tokenAmount").value;
       if (!userAddress) return buyStatus.innerText = "Connect wallet first.";
       if (!amt) return buyStatus.innerText = "Enter amount.";
-      buyStatus.innerHTML = `Simulating buy of ${amt} ETH worth of WarpAI...`;
+      buyStatus.innerHTML = `Buying ${amt} ETH worth of WarpAI...`;
       setTimeout(() => {
-        buyStatus.innerHTML = `<span style="color:green;">Success (mocked)</span>`;
+        buyStatus.innerHTML = `<span style="color:green;">Success! 🎉</span>`;
+        confettiAnimation();
       }, 1500);
     });
+  }
+
+  function confettiAnimation() {
+    const confetti = document.createElement("div");
+    confetti.innerText = "🎊";
+    confetti.style.position = "fixed";
+    confetti.style.top = "50%";
+    confetti.style.left = "50%";
+    confetti.style.transform = "translate(-50%, -50%)";
+    confetti.style.fontSize = "2rem";
+    document.body.appendChild(confetti);
+    setTimeout(() => document.body.removeChild(confetti), 1500);
+  }
+
+  // XP Mock Update
+  if (xpDisplay && streakDisplay) {
+    xpDisplay.innerText = "125 XP 🔥";
+    streakDisplay.innerText = "Streak: 5 Days";
   }
 });
 
