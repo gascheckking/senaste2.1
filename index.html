@@ -1,34 +1,101 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const walletDisplay = document.getElementById("headerWalletAddress");
-  const connectBtn = document.getElementById("connectWallet");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WarpAI – Onchain Activity Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">&#9884; WarpAI</div>
+    <div class="xp-info" id="xpDisplay">0 XP 🔥</div>
+    <button id="connectWallet">Connect Wallet</button>
+    <div class="wallet" id="walletSection" style="display:none">
+      <span id="walletAddress"></span>
+      <span id="xpStreak">300 XP 🔥 5</span>
+    </div>
+  </header>
 
-  let userAddress = null;
+  <main>
+    <section class="card">
+      <h2>📊 Wallet Activity</h2>
+      <p><span class="green">+2.50 ETH</span> Earned</p>
+      <p><span class="red">-1.23 ETH</span> Spent</p>
+      <p>Minted Token #123 via Zora</p>
+      <button>Claim XP</button>
+    </section>
 
-  connectBtn.addEventListener("click", async () => {
-    if (window.ethereum) {
-      try {
-        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-        userAddress = accounts[0];
-        walletDisplay.innerText = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
-        document.getElementById("connectedWalletInfo").style.display = "flex";
-        connectBtn.style.display = "none";
-      } catch {
-        alert("Connection failed");
-      }
-    } else {
-      alert("No wallet found");
-    }
-  });
+    <section class="card">
+      <h2>🔥 5 Day Streak</h2>
+      <div class="gas-meter">
+        <div class="gas-bar" id="gasBar"></div>
+        <div class="gas-labels">
+          <span>20—</span>
+          <span>50+</span>
+        </div>
+        <div id="gasValue">0 Gwei</div>
+      </div>
+    </section>
 
-  // Dummy XP streak
-  document.getElementById("headerXP").innerText = "300 XP";
-  document.getElementById("headerStreak").innerText = "5";
+    <section class="card">
+      <h2>📅 QuickBuy & Mint</h2>
+      <button>Mint WarpAI Coin</button>
+      <button>Buy trending token</button>
+      <button>Bridge ETH from Mainnet</button>
+    </section>
 
-  // Dummy Activity Feed
-  const activityFeed = document.getElementById("transactionFeed");
-  activityFeed.innerHTML = `
-    <div class="tx">✅ Minted Token #123 via Zora</div>
-    <div class="tx">🛒 Bought NFT on OpenSea</div>
-    <div class="tx">📤 Sent 0.001 ETH</div>
-  `;
-});
+    <section class="card">
+      <h2>🔍 Favorites & Following</h2>
+      <div id="activityFeed">Loading activity...</div>
+    </section>
+  </main>
+
+  <nav class="footer-nav">
+    <button class="active">Home</button>
+    <button>Wallet</button>
+    <button>Leaderboard</button>
+    <button>Rewards</button>
+    <button>Profile</button>
+    <button>Invite</button>
+  </nav>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const walletDisplay = document.getElementById("walletAddress");
+      const connectBtn = document.getElementById("connectWallet");
+      let userAddress = null;
+
+      connectBtn.addEventListener("click", async () => {
+        if (window.ethereum) {
+          try {
+            const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+            userAddress = accounts[0];
+            walletDisplay.innerText = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
+            document.getElementById("walletSection").style.display = "flex";
+          } catch {
+            alert("Connection failed");
+          }
+        } else {
+          alert("No wallet found");
+        }
+      });
+
+      // Dummy XP streak
+      document.getElementById("xpDisplay").innerText = "300 XP 🔥";
+      document.getElementById("xpStreak").innerText = "300 XP 🔥 5";
+
+      // Dummy Activity Feed
+      const activityFeed = document.getElementById("activityFeed");
+      activityFeed.innerHTML = `
+        <ul>
+          <li>🌱 Minted Token #123 via Zora</li>
+          <li>🚀 Bought NFT on OpenSea</li>
+          <li>📈 Sent 0.001 ETH</li>
+        </ul>
+      `;
+    });
+  </script>
+</body>
+</html>
