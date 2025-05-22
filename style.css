@@ -1,111 +1,145 @@
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #121212;
-  color: #eee;
+  margin: 0; padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #0d0d0d;
+  color: #e0e0e0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-header {
-  background: #000;
-  padding: 1rem 1.5rem;
+
+.app-header {
+  padding: 1rem;
+  background: #121212;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #222;
 }
-.logo {
-  font-weight: bold;
-  font-size: 1.4rem;
-  color: #0ff;
+
+.app-header h1 {
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0;
 }
-.btn {
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  color: white;
-  background: #333;
-  transition: background 0.3s;
+
+.app-header .subtitle {
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: #888;
+  margin-left: 0.4rem;
 }
-.btn:hover {
-  background: #555;
-}
-.connect-btn {
-  background: #0ff;
-  color: #000;
-  font-weight: 700;
-}
-.connect-btn:hover {
-  background: #0cc;
-}
-.tab-nav {
+
+.wallet-section {
   display: flex;
-  background: #1a1a1a;
-  justify-content: center;
+  align-items: center;
   gap: 1rem;
 }
-.tab-btn {
-  background: none;
+
+.connect-btn, .action-btn {
+  background-color: #3b82f6;
   border: none;
-  color: #bbb;
-  font-size: 1rem;
-  padding: 1rem 2rem;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
 }
-.tab-btn.active {
-  color: #0ff;
-  border-bottom: 3px solid #0ff;
-  font-weight: 700;
+
+.connect-btn:hover, .action-btn:hover {
+  background-color: #2563eb;
 }
+
+.wallet-address {
+  background: #222;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.xp-display {
+  font-weight: 600;
+  color: #f59e0b;
+  font-size: 0.9rem;
+}
+
 main {
-  padding: 1rem 1.5rem;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1rem;
 }
+
 .tab-content {
   display: none;
 }
+
 .tab-content.active {
   display: block;
 }
-.card {
-  background: #222;
-  padding: 1rem;
+
+h2 {
+  margin-top: 0;
   margin-bottom: 1rem;
-  border-radius: 12px;
-}
-.card .title {
   font-weight: 600;
-  margin-bottom: 0.5rem;
 }
-.xp-circle {
-  background: gold;
-  color: #000;
-  padding: 1rem;
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1.1rem;
-  margin-bottom: 0.8rem;
-  text-align: center;
-}
-.btn.green {
-  background: #0c6;
-  color: #000;
-}
-.btn.purple {
-  background: #94f;
-  color: #fff;
-}
-.token-info {
-  text-align: center;
-}
-ul {
+
+.tx-list, .leaderboard-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
-ul li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #333;
+
+.tx-list li, .leaderboard-list li {
+  background: #222;
+  margin-bottom: 0.6rem;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.rewards-info p, .mint-section {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.mint-section input {
+  width: 60%;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: none;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+
+.mint-section button {
+  padding: 0.45rem 1rem;
+}
+
+.footer-nav {
+  display: flex;
+  border-top: 1px solid #222;
+  background-color: #121212;
+  padding: 0.4rem 0;
+}
+
+.footer-tab {
+  flex: 1;
+  color: #888;
+  border: none;
+  background: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.4rem 0;
+  transition: color 0.3s ease;
+}
+
+.footer-tab.active, .footer-tab:hover {
+  color: #3b82f6;
 }
