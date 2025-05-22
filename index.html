@@ -3,83 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WarpAI – Onchain Activity Dashboard</title>
+  <title>WarpAI – Onchain Tracker</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
-<body data-theme="dark">
-  <header class="app-header">
-    <div class="header-content">
-      <div class="logo-section">
-        <div class="logo-main">
-          <span class="logo-symbol">✨</span> WarpAI
-        </div>
-        <div class="network-line"></div>
-        <div class="sub-logo">Onchain Tracker</div>
-      </div>
-      <div class="wallet-section">
-        <div class="xp-badge" id="xpDisplay">0 XP 🔥</div>
-        <button class="connect-btn" id="connectWallet">Connect Wallet</button>
-        <div class="wallet-info" id="connectedWalletInfo" style="display: none;">
-          <span class="wallet-address-display" id="headerWalletAddress"></span>
-          <span class="xp-streak-display" id="headerXPStreak">
-            <span id="headerXP">0 XP</span>
-            <span class="streak-icon">🔥</span>
-            <span id="headerStreak">0</span>
-          </span>
-        </div>
+<body>
+  <header class="header">
+    <div class="logo-area">
+      <span class="logo-icon">✨</span>
+      <span class="logo-text">WarpAI</span>
+      <span class="sub-text">Onchain Tracker</span>
+    </div>
+    <div class="wallet-area">
+      <span class="xp" id="xpDisplay">0 XP 🔥</span>
+      <button id="connectWallet">Connect Wallet</button>
+      <div class="wallet-info" id="connectedWalletInfo" style="display:none">
+        <span id="headerWalletAddress"></span>
+        <span class="streak">Streak: <span id="streakDisplay">0</span>🔥</span>
       </div>
     </div>
-    <div class="gas-bar" id="gasTracker">Loading gas...</div>
   </header>
 
-  <main class="main-content">
-    <!-- HOME -->
-    <section id="home" class="tab-section active">
+  <div id="gasTracker" class="gas-tracker">Loading gas...</div>
+
+  <main>
+    <section id="home" class="tab-section">
       <div class="card">
-        <h2>📊 Your Onchain Activity</h2>
-        <ul id="activityList" class="list"></ul>
+        <h2><span class="icon">📊</span> Your Onchain Activity</h2>
+        <ul id="activityList"></ul>
+      </div>
+      <div class="card">
+        <h2><span class="icon">🔥</span> 5 Day Streak</h2>
+        <div class="streak-bar">
+          <div class="bar-fill"></div>
+        </div>
+        <div id="gasValue">0 Gwei</div>
+      </div>
+      <div class="card">
+        <h2><span class="icon">📅</span> QuickBuy & Mint</h2>
+        <button id="buyTokenBtn">Mint WarpAI Coin</button>
+        <input id="tokenAmount" type="number" placeholder="ETH amount" />
+        <p id="buyStatus"></p>
+        <button>Buy trending token</button>
+        <button>Bridge ETH from Mainnet</button>
+      </div>
+      <div class="card">
+        <h2><span class="icon">🔍</span> Favorites & Following</h2>
+        <ul id="feedList"></ul>
       </div>
     </section>
 
-    <!-- TRACK -->
-    <section id="track" class="tab-section">
+    <section id="track" class="tab-section" style="display:none">
       <div class="card">
-        <h2>🧾 Transaction Feed</h2>
-        <ul id="feedList" class="list"></ul>
+        <h2>Wallet Activity Log</h2>
+        <p>(Mock data)</p>
+        <ul>
+          <li>Minted Token #123 via Zora</li>
+          <li>Bought NFT on OpenSea</li>
+          <li>Sent 0.001 ETH</li>
+        </ul>
       </div>
     </section>
 
-    <!-- LEADERBOARD + REWARDS -->
-    <section id="leaderboard" class="tab-section">
+    <section id="stats" class="tab-section" style="display:none">
       <div class="card">
-        <h2>🏆 Leaderboard</h2>
-        <ul id="leaderboardList" class="list"></ul>
-      </div>
-      <div class="card">
-        <h2>🎁 Claim Rewards</h2>
-        <input type="number" id="tokenAmount" placeholder="ETH Amount" />
-        <button id="buyTokenBtn">Buy</button>
-        <div id="buyStatus" class="status-text"></div>
+        <h2>Leaderboard</h2>
+        <ul id="leaderboardList"></ul>
       </div>
     </section>
 
-    <!-- PROFILE (inc Invite) -->
-    <section id="profile" class="tab-section">
+    <section id="profile" class="tab-section" style="display:none">
       <div class="card">
-        <h2>👤 Profile</h2>
-        <p id="streakDisplay">Streak: 0 Days</p>
-        <p>Shareable profile (mock): <br /><code>warp.ai/u/spawniz</code></p>
-        <button class="invite-btn">Invite Friends (+50 WP)</button>
+        <h2>Your Profile</h2>
+        <p>Address: <span id="walletAddress">Not connected</span></p>
+        <p>XP: <span id="xpText">125 XP</span></p>
+        <p>Streak: <span id="streakText">5 Days</span></p>
       </div>
     </section>
   </main>
 
   <nav class="footer-nav">
-    <button class="footer-tab active" data-tab="home" title="Home" onclick="switchTab('home')">🏠<br/>Home</button>
-    <button class="footer-tab" data-tab="track" title="Track" onclick="switchTab('track')">📈<br/>Track</button>
-    <button class="footer-tab" data-tab="leaderboard" title="Leaderboard" onclick="switchTab('leaderboard')">🏆<br/>Stats</button>
-    <button class="footer-tab" data-tab="profile" title="Profile" onclick="switchTab('profile')">👤<br/>Profile</button>
+    <button class="active" data-tab="home" onclick="switchTab('home')">🏠<br/>Home</button>
+    <button data-tab="track" onclick="switchTab('track')">📈<br/>Track</button>
+    <button data-tab="stats" onclick="switchTab('stats')">🏆<br/>Stats</button>
+    <button data-tab="profile" onclick="switchTab('profile')">👤<br/>Profile</button>
   </nav>
 
   <script src="app.js"></script>
