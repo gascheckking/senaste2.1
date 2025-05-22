@@ -1,98 +1,184 @@
 body {
   margin: 0;
+  padding: 0;
   font-family: 'Inter', sans-serif;
-  background: #0f0f0f;
-  color: #f5f5f5;
+  background-color: #0f0f0f;
+  color: #f0f0f0;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
-.header {
-  background: #111;
-  padding: 1rem;
-  text-align: center;
-  border-bottom: 1px solid #222;
+.app-header {
+  padding: 1rem 1rem 0.5rem;
+  background: #141414;
+  border-bottom: 1px solid #333;
 }
 
-.logo {
-  font-size: 1.5rem;
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.logo-main {
+  font-size: 1.4rem;
   font-weight: bold;
-  color: #00c7ff;
+  color: #00c67c;
 }
 
-.xp-info {
-  font-size: 0.9rem;
+.network-line {
+  width: 1px;
+  height: 20px;
+  background: #333;
+}
+
+.sub-logo {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.wallet-section {
+  text-align: right;
+}
+
+.wallet-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.wallet-address-display {
+  font-size: 0.75rem;
   color: #ccc;
 }
 
-button {
-  background: #00c67c;
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  margin: 0.5rem 0;
-  border-radius: 6px;
-  cursor: pointer;
+.xp-streak-display {
+  font-size: 0.7rem;
+  color: #aaa;
 }
 
-button:hover {
-  background: #00a56a;
+.connect-btn {
+  background: #00c67c;
+  border: none;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.3rem;
+}
+
+.connect-btn:hover {
+  background: #00a868;
+}
+
+.gas-bar {
+  background: #1e1e1e;
+  color: #00ffcc;
+  text-align: center;
+  padding: 0.3rem;
+  font-size: 0.75rem;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+}
+
+.main-content {
+  padding: 1rem 1rem 4rem;
 }
 
 .card {
   background: #1a1a1a;
-  border-radius: 12px;
-  margin: 1rem;
+  border-radius: 10px;
   padding: 1rem;
+  margin-bottom: 1rem;
 }
 
-.green {
-  color: #00ff99;
+.card h2 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.red {
-  color: #ff4d4d;
-}
-
-.gas-meter {
-  background: #111;
-  border-radius: 8px;
-  padding: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.gas-bar {
-  height: 6px;
-  width: 60%;
-  background: linear-gradient(to right, #00ff99, #ffcc00, #ff3333);
+input[type="number"] {
+  width: 100%;
+  padding: 0.4rem;
   border-radius: 4px;
-  margin: 0.4rem auto;
+  border: 1px solid #444;
+  background: #0f0f0f;
+  color: #fff;
+  margin-bottom: 0.5rem;
 }
 
-.gas-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.7rem;
-  color: #aaa;
+button {
+  background: #00c67c;
+  border: none;
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+button:hover {
+  background: #00a868;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #2a2a2a;
+  font-size: 0.85rem;
+}
+
+.status-text {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
 }
 
 .footer-nav {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
-  background: #111;
+  max-width: 480px;
+  background: #101010;
+  border-top: 1px solid #222;
   display: flex;
   justify-content: space-around;
-  border-top: 1px solid #333;
+  padding: 0.3rem 0;
+  z-index: 1000;
 }
 
-.footer-nav button {
-  flex: 1;
+.footer-tab {
   background: none;
-  color: #888;
   border: none;
-  padding: 0.5rem 0;
-  font-size: 0.75rem;
+  color: #888;
+  font-size: 0.7rem;
+  text-align: center;
+  flex: 1;
+  cursor: pointer;
 }
 
-.footer-nav button.active {
+.footer-tab.active {
   color: #00c67c;
+  font-weight: bold;
+}
+
+.tab-section {
+  display: none;
+}
+
+.tab-section.active {
+  display: block;
 }
