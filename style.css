@@ -1,209 +1,167 @@
-/* Global */
+/* style.css */
+
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #121212;
-  color: #e0e0e0;
+  background-color: #0f0f0f;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-a {
-  color: #0ff;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-
-/* Header */
-.header {
+.app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1f1f1f;
-  padding: 1rem 2rem;
+  background: #111;
+  padding: 1rem 1.5rem;
   border-bottom: 1px solid #222;
 }
 
-.logo h1 {
-  margin: 0;
+.header-left h1 {
   font-weight: 700;
-  font-size: 1.5rem;
-  color: #00ffaa;
+  font-size: 1.3rem;
+  color: #00ffae;
+  margin: 0;
 }
 
-.logo .tracker {
-  color: #aaa;
-  font-weight: 400;
-  margin-left: 0.4rem;
-}
-
-.wallet-section {
+.header-right {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-#walletAddress, #xpDisplay {
-  font-weight: 600;
-  font-size: 1rem;
-  color: #33ff99;
-}
-
-#connectWallet {
-  background-color: #00cc66;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  color: white;
-  font-weight: 700;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.25s ease;
-}
-
-#connectWallet:hover {
-  background-color: #009944;
-}
-
-/* Gas Tracker */
-.gas-bar {
-  background-color: #232323;
-  padding: 0.7rem 2rem;
+.xp-display {
   font-weight: 600;
   font-size: 1.1rem;
-  color: #33cc33;
-  border-bottom: 1px solid #2a2a2a;
+  color: #ff5722;
 }
 
-/* Main content */
+.connect-btn {
+  background-color: #00ffae;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  color: #111;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.connect-btn:hover {
+  background-color: #00cca3;
+}
+
 main {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.5rem;
+  background: #121212;
 }
 
 .card {
-  background-color: #1e1e1e;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0,255,170,0.15);
+  background-color: #1c1c1c;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 15px rgba(0, 255, 174, 0.1);
 }
 
-.card h2 {
+h2 {
   margin-top: 0;
   font-weight: 700;
-  color: #00ffaa;
+  color: #00ffae;
   margin-bottom: 1rem;
 }
 
-/* Activity section */
-.activity {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  font-size: 1.05rem;
+.list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
   color: #ddd;
 }
 
-.activity div {
-  flex: 1 1 45%;
+.list li {
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #222;
 }
 
-.activity button {
-  background-color: #00cc66;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
+.list li:last-child {
+  border-bottom: none;
+}
+
+.status {
+  margin-top: 0.5rem;
+  color: #f44336;
   font-weight: 600;
-  cursor: pointer;
-  margin-top: 1rem;
 }
 
-.activity button:hover {
-  background-color: #009944;
-}
-
-/* Streak bar */
-.streak-bar {
-  display: flex;
-  height: 14px;
-  border-radius: 6px;
-  overflow: hidden;
-  margin-top: 8px;
-  box-shadow: inset 0 0 4px #00ffaeaa;
-}
-
-.bar {
-  flex-grow: 1;
-}
-
-.green {
+.buy-btn, .invite-btn {
   background-color: #00ffae;
-  flex-basis: 40%;
-}
-
-.yellow {
-  background-color: #ffc233;
-  flex-basis: 20%;
-}
-
-.red {
-  background-color: #ff3b3b;
-  flex-basis: 40%;
-}
-
-/* QuickBuy buttons */
-.buttons {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.buttons button {
-  flex: 1 1 auto;
-  background-color: #00cc66;
+  color: #111;
   border: none;
-  padding: 0.75rem 1.2rem;
-  color: white;
-  font-weight: 600;
-  border-radius: 6px;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
 }
 
-.buttons button:hover {
-  background-color: #009944;
+.buy-btn:hover, .invite-btn:hover {
+  background-color: #00cca3;
 }
 
-/* Footer navigation */
-.footer-nav {
-  position: fixed;
-  bottom: 0;
+input[type="number"] {
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: #1a1a1a;
-  border-top: 1px solid #222;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #222;
+  background: #0f0f0f;
+  color: #eee;
+  margin-bottom: 0.8rem;
+  box-sizing: border-box;
+}
+
+.footer-nav {
   display: flex;
   justify-content: space-around;
-  padding: 0.5rem 0;
-  z-index: 100;
+  background-color: #111;
+  border-top: 1px solid #222;
 }
 
-.footer-nav button {
+.tab-btn {
   background: none;
   border: none;
-  color: #777;
-  font-weight: 700;
+  padding: 0.8rem 0;
+  flex: 1;
+  color: #666;
+  font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  transition: color 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: color 0.2s ease;
 }
 
-.footer-nav button.active,
-.footer-nav button:hover {
-  color: #00ffaa;
-  border-bottom: 2px solid #00ffaa;
+.tab-btn span {
+  margin-top: 0.2rem;
+  font-size: 0.75rem;
+}
+
+.tab-btn.active {
+  color: #00ffae;
+  font-weight: 700;
+  border-top: 3px solid #00ffae;
+}
+
+.tab-section {
+  display: none;
+}
+
+.tab-section.active {
+  display: block;
 }
