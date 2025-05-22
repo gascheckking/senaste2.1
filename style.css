@@ -1,79 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WarpAI – Onchain Tracker</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-</head>
-<body>
-  <header class="app-header">
-    <div class="header-left">
-      <h1>✨ <span class="warpai">WarpAI</span> <span class="tracker-label">Onchain Tracker</span></h1>
-    </div>
-    <div class="header-right">
-      <div class="xp-display" id="xpDisplay">0 XP 🔥</div>
-      <button id="connectWallet" class="connect-btn">Connect Wallet</button>
-    </div>
-  </header>
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0f0f0f;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
 
-  <div class="gas-section" id="gasTracker">Loading gas...</div>
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #111;
+  border-bottom: 1px solid #222;
+}
 
-  <main>
-    <section id="home" class="tab-section">
-      <div class="card">
-        <h2>📊 Activity Feed</h2>
-        <ul id="activityList"></ul>
-      </div>
-      <div class="card">
-        <h2>🔥 Live Feed</h2>
-        <ul id="feedList"></ul>
-      </div>
-      <div class="card">
-        <h2>🥽 Gas Tracker</h2>
-        <div id="gasData">Loading...</div>
-      </div>
-    </section>
+.header-left h1 {
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 600;
+}
 
-    <section id="notifications" class="tab-section" style="display:none">
-      <div class="card">
-        <h2>🔔 Notifications</h2>
-        <p>No notifications yet.</p>
-      </div>
-    </section>
+.header-left .warpai {
+  color: #00ffae;
+}
 
-    <section id="explore" class="tab-section" style="display:none">
-      <div class="card">
-        <h2>🧭 Explore</h2>
-        <p>Coming soon...</p>
-      </div>
-    </section>
+.header-left .tracker-label {
+  color: #aaa;
+  font-weight: normal;
+}
 
-    <section id="profile" class="tab-section" style="display:none">
-      <div class="card">
-        <h2>👤 Profile</h2>
-        <div id="connectedWalletInfo" style="display:none">
-          <p id="headerWalletAddress"></p>
-          <p id="streakDisplay">Streak: 0</p>
-        </div>
-      </div>
-      <div class="card">
-        <h2>🧪 Mint Tester</h2>
-        <input type="number" id="tokenAmount" placeholder="ETH amount" />
-        <button id="buyTokenBtn">Mint WarpAI Coin</button>
-        <p id="buyStatus"></p>
-      </div>
-    </section>
-  </main>
+.header-right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
 
-  <nav class="footer-nav">
-    <button class="tab-btn active" data-tab="home" onclick="switchTab('home')">🏠<span>Home</span></button>
-    <button class="tab-btn" data-tab="notifications" onclick="switchTab('notifications')">🔔<span>Notifications</span></button>
-    <button class="tab-btn" data-tab="explore" onclick="switchTab('explore')">🔍<span>Explore</span></button>
-    <button class="tab-btn" data-tab="profile" onclick="switchTab('profile')">👤<span>Profile</span></button>
-  </nav>
+.connect-btn {
+  background-color: #00c67c;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-  <script src="app.js"></script>
-</body>
-</html>
+.connect-btn:hover {
+  background-color: #00a868;
+}
+
+.xp-display {
+  font-weight: bold;
+}
+
+.gas-section {
+  text-align: center;
+  padding: 0.5rem;
+  background: #1a1a1a;
+  font-size: 0.9rem;
+  color: #0f0;
+}
+
+main {
+  padding: 1rem;
+}
+
+.card {
+  background: #1a1a1a;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.tab-section {
+  display: none;
+}
+
+.tab-section.active {
+  display: block;
+}
+
+.footer-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #111;
+  border-top: 1px solid #222;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.4rem 0;
+}
+
+.footer-nav .tab-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.footer-nav .tab-btn.active {
+  color: #00ffae;
+}
+
+input[type="number"] {
+  padding: 0.5rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 5px;
+}
+
+button {
+  padding: 0.5rem;
+  background: #00c67c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #00a868;
+}
