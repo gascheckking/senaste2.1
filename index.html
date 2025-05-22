@@ -1,59 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WarpAI Onchain Tracker</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WarpAI Onchain Activity Tracker</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div class="logo">WarpAI</div>
-    <button id="connectBtn">Connect Wallet</button>
-  </header>
+<header>
+  <div class="logo">WarpAI</div>
+  <button id="connectBtn" class="btn connect-btn">Connect Wallet</button>
+</header>
 
-  <nav>
-    <button class="tab-btn active" data-tab="overview">Overview</button>
-    <button class="tab-btn" data-tab="wallet">Wallet</button>
-    <button class="tab-btn" data-tab="track">Track</button>
-    <button class="tab-btn" data-tab="leaderboard">Leaderboard</button>
-    <button class="tab-btn" data-tab="rewards">Rewards</button>
-    <button class="tab-btn" data-tab="profile">Profile</button>
-  </nav>
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="home">Home</button>
+  <button class="tab-btn" data-tab="track">Track</button>
+  <button class="tab-btn" data-tab="leader">Leader</button>
+</nav>
 
-  <main>
-    <section id="overview" class="tab-content active">
-      <h2>Onchain Activity Tracker</h2>
-      <div id="activitySummary">Loading activity...</div>
-      <button id="claimXPBtn">Claim XP</button>
-    </section>
-
-    <section id="wallet" class="tab-content">
-      <h2>Wallet Info</h2>
+<main>
+  <section id="home" class="tab-content active">
+    <div class="card">
+      <div class="title">Your Wallet</div>
       <div id="walletAddress">Not connected</div>
-    </section>
+      <button id="walletConnect" class="btn">Connect</button>
+    </div>
 
-    <section id="track" class="tab-content">
-      <h2>Track Onchain Activity</h2>
-      <div id="trackData">Loading...</div>
-    </section>
+    <div class="card">
+      <div class="title">Your Reward Level</div>
+      <div class="xp-circle">87 points • 5-day streak</div>
+      <button id="claimRewardBtn" class="btn green">Claim reward</button>
+    </div>
 
-    <section id="leaderboard" class="tab-content">
-      <h2>Leaderboard</h2>
-      <ul id="leaderboardList">Loading...</ul>
-    </section>
+    <div class="card">
+      <div class="title">Overview</div>
+      <div>92 gwei • Low</div>
+      <button id="checkPriceBtn" class="btn">Check price</button>
+    </div>
 
-    <section id="rewards" class="tab-content">
-      <h2>Rewards</h2>
-      <ul id="rewardsList">Loading...</ul>
-    </section>
+    <div class="card token-info">
+      <div class="title">Warp Oil PL Token</div>
+      <div>Symbol: $WPL<br>Status: Pre-launch<br>Contract: 0xabc...def</div>
+      <button id="mintZoraBtn" class="btn">Mint on Zora</button>
+    </div>
+  </section>
 
-    <section id="profile" class="tab-content">
-      <h2>User Profile</h2>
-      <div id="profileInfo">Loading profile...</div>
-    </section>
-  </main>
+  <section id="track" class="tab-content">
+    <div class="card">
+      <div class="title">Claim</div>
+      <button id="claimXpBtn" class="btn purple">Claim</button>
+      <div>Your XP<br><strong>2-Day Streak</strong></div>
+      <button id="buyZoraBtn" class="btn">Buy ZORA</button>
+      <button id="swapWarpBtn" class="btn">Swap to WARP</button>
+    </div>
+  </section>
 
-  <script src="app.js"></script>
+  <section id="leader" class="tab-content">
+    <h2>Leaderboard</h2>
+    <ul id="leaderboardList">
+      <li><strong>1.</strong> Alice — 1,200 XP</li>
+      <li><strong>2.</strong> Dave — 980 XP</li>
+      <li><strong>3.</strong> Spawniz — 700 XP</li>
+    </ul>
+
+    <h2>Activity Feed</h2>
+    <ul id="activityFeed">
+      <li>You earned 100 XP - 3h ago</li>
+      <li>Matt minted WarpAI Genesis Token</li>
+    </ul>
+  </section>
+</main>
+
+<script src="app.js"></script>
 </body>
 </html>
