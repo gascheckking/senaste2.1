@@ -6,61 +6,54 @@
   <title>WarpAI – Onchain Activity Dashboard</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/viem@1.14.2/dist/viem.umd.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/wagmi@1.3.6/dist/wagmi.umd.min.js"></script>
-  <script src="https://unpkg.com/@walletconnect/modal@2.6.4/dist/index.umd.js"></script>
 </head>
-<body data-theme="dark">
+<body>
   <header class="app-header">
-    <div class="header-content">
-      <div class="logo-main">
-        <span class="logo-symbol">✨</span> WarpAI
-      </div>
-      <div class="wallet-section">
-        <div class="xp-badge" id="xpDisplay">0 XP 🔥</div>
-        <button class="connect-btn" id="connectWallet">Connect Wallet</button>
-        <div class="wallet-info" id="connectedWalletInfo" style="display: none;">
-          <span class="wallet-address-display" id="headerWalletAddress"></span>
-          <span class="xp-streak-display" id="headerXPStreak">
-            <span id="headerXP">0 XP</span>
-            <span class="streak-icon">🔥</span>
-            <span id="headerStreak">0</span>
-          </span>
-        </div>
-      </div>
+    <div class="logo-main">
+      <span class="logo-symbol"><img src="logo.png" alt="WarpAI Logo" /></span>
+      <h1>WarpAI</h1>
+      <p class="subtitle">Onchain Activity Tracker</p>
+    </div>
+    <div class="wallet-section">
+      <div id="xpDisplay">0 XP 🔥</div>
+      <button id="connectWallet">Connect Wallet</button>
+      <button id="disconnectWallet" style="display:none;">Disconnect</button>
+      <div id="walletAddress" class="wallet-address"></div>
     </div>
   </header>
 
-  <main class="main-content">
-    <section id="home" class="tab-content active">
-      <div class="card main-activity-card">
-        <h2>📊 Your Onchain Activity</h2>
-        <div id="transactionFeed" class="transaction-feed">
-          <!-- Transactions will be loaded here -->
-        </div>
+  <main class="main">
+    <section class="overview">
+      <h2>📊 Wallet Activity</h2>
+      <div class="activity-summary">
+        <div>+2.50 ETH Earned</div>
+        <div>-1.23 ETH Spent</div>
       </div>
+      <button id="claimXP">Claim XP</button>
+      <p id="streak">🔥 5 Day Streak</p>
+      <div class="gas-meter"><div id="gasBar"></div></div>
+    </section>
+
+    <section class="quick-actions">
+      <h2>QuickBuy & Mint</h2>
+      <button>Mint WarpAI Coin</button>
+      <button>Buy trending token</button>
+      <button>Bridge ETH from Mainnet</button>
+    </section>
+
+    <section class="favorites">
+      <h2>Favorites & Following</h2>
+      <div id="activityFeed">Loading activity...</div>
     </section>
   </main>
 
   <nav class="footer-nav">
-    <button class="footer-tab active" data-tab="home" title="Home">
-      <i class="fas fa-home"></i><span>Home</span>
-    </button>
-    <button class="footer-tab" data-tab="track" title="Track">
-      <i class="fas fa-chart-line"></i><span>Track</span>
-    </button>
-    <button class="footer-tab" data-tab="leaderboard" title="Leaderboard">
-      <i class="fas fa-trophy"></i><span>Leaderboard</span>
-    </button>
-    <button class="footer-tab" data-tab="rewards" title="Rewards">
-      <i class="fas fa-gift"></i><span>Rewards</span>
-    </button>
-    <button class="footer-tab" data-tab="profile" title="Profile">
-      <i class="fas fa-user"></i><span>Profile</span>
-    </button>
-    <button class="footer-tab" data-tab="invite" title="Invite">
-      <i class="fas fa-user-plus"></i><span>Invite</span>
-    </button>
+    <button data-tab="home" class="active">Home</button>
+    <button data-tab="wallet">Wallet</button>
+    <button data-tab="leaderboard">Leaderboard</button>
+    <button data-tab="rewards">Rewards</button>
+    <button data-tab="profile">Profile</button>
+    <button data-tab="invite">Invite</button>
   </nav>
 
   <script src="app.js"></script>
