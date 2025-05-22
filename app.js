@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const walletDisplay = document.getElementById("headerWalletAddress");
-  const connectBtn = document.getElementById("connectWallet");
+  const walletDisplay = document.getElementById("headerWalletAddress") || document.getElementById("walletAddress");
+  const connectBtn = document.getElementById("connectWallet") || document.getElementById("connectBtn");
   const gasTracker = document.getElementById("gasTracker");
   const activityList = document.getElementById("activityList");
   const leaderboardList = document.getElementById("leaderboardList");
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
         userAddress = accounts[0];
         walletDisplay.innerText = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
-        document.getElementById("connectedWalletInfo").style.display = "block";
+        document.getElementById("connectedWalletInfo")?.style.display = "flex";
         connectBtn.style.display = "none";
       } catch {
         alert("Connection failed");
@@ -33,7 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await fetch("https://api.owlracle.info/v4/base/gas");
       const data = await res.json();
       const gwei = data.speeds[1].gasPrice / 1e9;
-      gasTracker.innerHTML = `<strong>Base Gas:</strong> ${gwei.toFixed(2)} Gwei ($${(gwei * 0.00000002 * 3000).toFixed(4)})`;
+      const priceUSD = (gwei * 0.00000002 * 3000).toFixed(4);
+      gasTracker.innerHTML = `<strong style="color:lime;">Base Gas:</strong> ${gwei.toFixed(2)} Gwei ($${priceUSD})`;
     } catch {
       gasTracker.innerHTML = `<span style="color:red;">Failed to load gas</span>`;
     }
@@ -52,8 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const dummyActivity = [
-    "Jessepollak coined MemeX",
-    "Spawniz minted GlitchLord",
+    "Jessepollak coined MemeX", 
+    "Spawniz minted GlitchLord", 
     "You bought NFT for 0.003 ETH"
   ];
   if (activityList) {
@@ -94,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => document.body.removeChild(confetti), 1500);
   }
 
+  // XP Mock Update
   if (xpDisplay && streakDisplay) {
     xpDisplay.innerText = "125 XP 🔥";
     streakDisplay.innerText = "Streak: 5 Days";
