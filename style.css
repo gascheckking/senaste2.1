@@ -1,118 +1,79 @@
-:root {
-  --accent: #00c67c;
-  --bg: #0f0f0f;
-  --card: #1a1a1a;
-  --text: #f0f0f0;
-  --muted: #888;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WarpAI – Onchain Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-left">
+      <h1>✨ <span class="warpai">WarpAI</span> <span class="tracker-label">Onchain Tracker</span></h1>
+    </div>
+    <div class="header-right">
+      <div class="xp-display" id="xpDisplay">0 XP 🔥</div>
+      <button id="connectWallet" class="connect-btn">Connect Wallet</button>
+    </div>
+  </header>
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg);
-  color: var(--text);
-}
+  <div class="gas-section" id="gasTracker">Loading gas...</div>
 
-header {
-  background: #121212;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #222;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
+  <main>
+    <section id="home" class="tab-section">
+      <div class="card">
+        <h2>📊 Activity Feed</h2>
+        <ul id="activityList"></ul>
+      </div>
+      <div class="card">
+        <h2>🔥 Live Feed</h2>
+        <ul id="feedList"></ul>
+      </div>
+      <div class="card">
+        <h2>🥽 Gas Tracker</h2>
+        <div id="gasData">Loading...</div>
+      </div>
+    </section>
 
-.logo-main {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: var(--accent);
-}
+    <section id="notifications" class="tab-section" style="display:none">
+      <div class="card">
+        <h2>🔔 Notifications</h2>
+        <p>No notifications yet.</p>
+      </div>
+    </section>
 
-.header-title {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-top: 4px;
-}
+    <section id="explore" class="tab-section" style="display:none">
+      <div class="card">
+        <h2>🧭 Explore</h2>
+        <p>Coming soon...</p>
+      </div>
+    </section>
 
-.wallet-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
+    <section id="profile" class="tab-section" style="display:none">
+      <div class="card">
+        <h2>👤 Profile</h2>
+        <div id="connectedWalletInfo" style="display:none">
+          <p id="headerWalletAddress"></p>
+          <p id="streakDisplay">Streak: 0</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2>🧪 Mint Tester</h2>
+        <input type="number" id="tokenAmount" placeholder="ETH amount" />
+        <button id="buyTokenBtn">Mint WarpAI Coin</button>
+        <p id="buyStatus"></p>
+      </div>
+    </section>
+  </main>
 
-.connect-btn {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  margin-top: 0.3rem;
-  cursor: pointer;
-}
+  <nav class="footer-nav">
+    <button class="tab-btn active" data-tab="home" onclick="switchTab('home')">🏠<span>Home</span></button>
+    <button class="tab-btn" data-tab="notifications" onclick="switchTab('notifications')">🔔<span>Notifications</span></button>
+    <button class="tab-btn" data-tab="explore" onclick="switchTab('explore')">🔍<span>Explore</span></button>
+    <button class="tab-btn" data-tab="profile" onclick="switchTab('profile')">👤<span>Profile</span></button>
+  </nav>
 
-.wallet-address-display {
-  font-size: 0.8rem;
-  margin-top: 0.3rem;
-  color: #ccc;
-}
-
-.main-content {
-  padding: 1rem;
-  max-width: 480px;
-  margin: 0 auto;
-}
-
-.card {
-  background: var(--card);
-  border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-
-.card h2 {
-  margin: 0 0 0.5rem;
-  font-size: 1.1rem;
-}
-
-.transaction-feed,
-.activity-list,
-.leaderboard-list,
-.feed-list {
-  list-style: none;
-  padding: 0;
-  font-size: 0.85rem;
-}
-
-.transaction-feed li,
-.activity-list li,
-.leaderboard-list li,
-.feed-list li {
-  margin-bottom: 0.5rem;
-  background: #181818;
-  padding: 0.5rem;
-  border-radius: 6px;
-}
-
-.footer-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #111;
-  border-top: 1px solid #222;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0.3rem 0;
-  z-index: 1000;
-}
-
-.footer-tab {
-  background: none;
-  border: none;
-  color: #888;
-  font-size: 0.75rem;
-  display
+  <script src="app.js"></script>
+</body>
+</html>
