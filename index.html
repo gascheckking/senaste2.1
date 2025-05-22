@@ -3,73 +3,62 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>WarpAI Onchain Activity Tracker</title>
+<title>WarpAI – Onchain Activity Tracker</title>
 <link rel="stylesheet" href="style.css" />
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
-<header>
-  <div class="logo">WarpAI</div>
-  <button id="connectBtn" class="btn connect-btn">Connect Wallet</button>
+<header class="app-header">
+  <h1>✨ WarpAI <span class="subtitle">Onchain Activity Tracker</span></h1>
+  <div class="wallet-section">
+    <button id="connectWalletBtn" class="connect-btn">Connect Wallet</button>
+    <div id="walletAddress" class="wallet-address" style="display:none"></div>
+    <div id="xpDisplay" class="xp-display">XP: 0 🔥</div>
+  </div>
 </header>
 
-<nav class="tab-nav">
-  <button class="tab-btn active" data-tab="home">Home</button>
-  <button class="tab-btn" data-tab="track">Track</button>
-  <button class="tab-btn" data-tab="leader">Leader</button>
-</nav>
-
 <main>
-  <section id="home" class="tab-content active">
-    <div class="card">
-      <div class="title">Your Wallet</div>
-      <div id="walletAddress">Not connected</div>
-      <button id="walletConnect" class="btn">Connect</button>
-    </div>
+  <section id="tab-home" class="tab-content active">
+    <h2>Onchain Transactions</h2>
+    <ul id="txList" class="tx-list">
+      <li>Connect your wallet to load transactions</li>
+    </ul>
+  </section>
 
-    <div class="card">
-      <div class="title">Your Reward Level</div>
-      <div class="xp-circle">87 points • 5-day streak</div>
-      <button id="claimRewardBtn" class="btn green">Claim reward</button>
+  <section id="tab-rewards" class="tab-content">
+    <h2>Rewards & Mint</h2>
+    <div class="rewards-info">
+      <p>Current XP: <span id="rewardXP">0</span></p>
+      <p>Streak: <span id="rewardStreak">0</span> days</p>
+      <button id="claimXPBtn" class="action-btn">Claim XP</button>
     </div>
-
-    <div class="card">
-      <div class="title">Overview</div>
-      <div>92 gwei • Low</div>
-      <button id="checkPriceBtn" class="btn">Check price</button>
-    </div>
-
-    <div class="card token-info">
-      <div class="title">Warp Oil PL Token</div>
-      <div>Symbol: $WPL<br>Status: Pre-launch<br>Contract: 0xabc...def</div>
-      <button id="mintZoraBtn" class="btn">Mint on Zora</button>
+    <div class="mint-section">
+      <input type="number" id="mintAmount" placeholder="ETH amount" min="0.001" step="0.001" />
+      <button id="mintBtn" class="action-btn">Mint WarpAI Token</button>
+      <p id="mintStatus"></p>
     </div>
   </section>
 
-  <section id="track" class="tab-content">
-    <div class="card">
-      <div class="title">Claim</div>
-      <button id="claimXpBtn" class="btn purple">Claim</button>
-      <div>Your XP<br><strong>2-Day Streak</strong></div>
-      <button id="buyZoraBtn" class="btn">Buy ZORA</button>
-      <button id="swapWarpBtn" class="btn">Swap to WARP</button>
-    </div>
-  </section>
-
-  <section id="leader" class="tab-content">
+  <section id="tab-leaderboard" class="tab-content">
     <h2>Leaderboard</h2>
-    <ul id="leaderboardList">
-      <li><strong>1.</strong> Alice — 1,200 XP</li>
-      <li><strong>2.</strong> Dave — 980 XP</li>
-      <li><strong>3.</strong> Spawniz — 700 XP</li>
-    </ul>
+    <ul id="leaderboardList" class="leaderboard-list"></ul>
+  </section>
 
-    <h2>Activity Feed</h2>
-    <ul id="activityFeed">
-      <li>You earned 100 XP - 3h ago</li>
-      <li>Matt minted WarpAI Genesis Token</li>
-    </ul>
+  <section id="tab-invite" class="tab-content">
+    <h2>Invite Friends</h2>
+    <p>Invite friends and earn <strong>+50 XP</strong>!</p>
+    <input type="text" id="referralLink" readonly />
+    <button id="copyReferralBtn" class="action-btn">Copy Referral Link</button>
+    <p id="copyStatus"></p>
   </section>
 </main>
+
+<nav class="footer-nav">
+  <button data-tab="home" class="footer-tab active">🏠 Home</button>
+  <button data-tab="rewards" class="footer-tab">🎁 Rewards</button>
+  <button data-tab="leaderboard" class="footer-tab">🏆 Leaderboard</button>
+  <button data-tab="invite" class="footer-tab">👥 Invite</button>
+</nav>
 
 <script src="app.js"></script>
 </body>
