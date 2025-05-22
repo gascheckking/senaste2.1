@@ -4,15 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const gasTracker = document.getElementById("gasTracker");
   const activityList = document.getElementById("activityList");
   const leaderboardList = document.getElementById("leaderboardList");
-  const buyBtn = document.getElementById("buyTokenBtn");
-  const buyStatus = document.getElementById("buyStatus");
   const feedList = document.getElementById("feedList");
   const streakDisplay = document.getElementById("streakDisplay");
   const xpDisplay = document.getElementById("xpDisplay");
 
   let userAddress = null;
 
-  connectBtn.addEventListener("click", async () => {
+  connectBtn?.addEventListener("click", async () => {
     if (window.ethereum) {
       try {
         const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
@@ -33,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await fetch("https://api.owlracle.info/v4/base/gas");
       const data = await res.json();
       const gwei = data.speeds[1].gasPrice / 1e9;
-      gasTracker.innerHTML = `<strong>Base Gas:</strong> ${gwei.toFixed(2)} Gwei`;
+      gasTracker.innerHTML = `<strong>Base Gas:</strong> ${gwei.toFixed(2)} Gwei ($${(gwei * 0.00000002 * 3000).toFixed(4)})`;
     } catch {
       gasTracker.innerHTML = `<span style="color:red;">Failed to load gas</span>`;
     }
@@ -42,59 +40,30 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchGas();
   setInterval(fetchGas, 15000);
 
-  const dummyLeaders = [
-    { name: "Spawniz", xp: 350 },
-    { name: "BaseLord", xp: 290 },
-    { name: "ZoraMaxxer", xp: 220 }
-  ];
   if (leaderboardList) {
-    leaderboardList.innerHTML = dummyLeaders.map((n, i) => `<li>#${i + 1} – ${n.name}: ${n.xp} XP</li>`).join("");
+    leaderboardList.innerHTML = [
+      "Spawniz – 340 XP",
+      "BaseLord – 275 XP",
+      "ZoraMaxxer – 199 XP"
+    ].map((n, i) => `<li>#${i + 1} – ${n}</li>`).join("");
   }
 
-  const dummyActivity = [
-    "Jessepollak coined MemeX", 
-    "Spawniz minted GlitchLord", 
-    "You bought NFT for 0.003 ETH"
-  ];
   if (activityList) {
-    activityList.innerHTML = dummyActivity.map(a => `<li>📈 ${a}</li>`).join("");
+    activityList.innerHTML = [
+      "Jessepollak coined MemeX",
+      "Spawniz minted GlitchLord",
+      "You bought NFT for 0.003 ETH"
+    ].map(a => `<li>📈 ${a}</li>`).join("");
   }
 
-  const dummyFeed = [
-    { user: "BaseLord", action: "minted Token A" },
-    { user: "ZoraMaxxer", action: "coined MemePack" },
-    { user: "Spawniz", action: "bought WarpNFT" }
-  ];
   if (feedList) {
-    feedList.innerHTML = dummyFeed.map(f => `<li>🔥 <strong>${f.user}</strong> ${f.action}</li>`).join("");
+    feedList.innerHTML = [
+      "🔥 BaseLord minted Token A",
+      "🔥 ZoraMaxxer coined MemePack",
+      "🔥 Spawniz bought WarpNFT"
+    ].map(f => `<li>${f}</li>`).join("");
   }
 
-  if (buyBtn) {
-    buyBtn.addEventListener("click", () => {
-      const amt = document.getElementById("tokenAmount").value;
-      if (!userAddress) return buyStatus.innerText = "Connect wallet first.";
-      if (!amt) return buyStatus.innerText = "Enter amount.";
-      buyStatus.innerHTML = `Buying ${amt} ETH worth of WarpAI...`;
-      setTimeout(() => {
-        buyStatus.innerHTML = `<span style="color:green;">Success! 🎉</span>`;
-        confettiAnimation();
-      }, 1500);
-    });
-  }
-
-  function confettiAnimation() {
-    const confetti = document.createElement("div");
-    confetti.innerText = "🎊";
-    confetti.style.position = "fixed";
-    confetti.style.top = "50%";
-    confetti.style.left = "50%";
-    confetti.style.transform = "translate(-50%, -50%)";
-    confetti.style.fontSize = "2rem";
-    document.body.appendChild(confetti);
-    setTimeout(() => document.body.removeChild(confetti), 1500);
-  }
-
-  // XP Mock Update
   if (xpDisplay && streakDisplay) {
     xpDisplay.innerText = "125 XP 🔥";
     streakDisplay.innerText = "Streak: 5 Days";
@@ -102,9 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function switchTab(tabName) {
-  document.querySelectorAll(".tab-section").forEach(el => el.style.display = "none");
+  document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
   const targetTab = document.querySelector(`#${tabName}`);
-  if (targetTab) targetTab.style.display = "block";
+  if (targetTab) targetTab.classList.add("active");
   document.querySelectorAll(".footer-nav button").forEach(btn => btn.classList.remove("active"));
   const btn = Array.from(document.querySelectorAll(".footer-nav button")).find(b => b.dataset.tab === tabName);
   if (btn) btn.classList.add("active");
