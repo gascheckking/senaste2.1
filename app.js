@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const walletDisplay = document.getElementById("headerWalletAddress") || document.getElementById("walletAddress");
   const connectBtn = document.getElementById("connectWallet") || document.getElementById("connectBtn");
   const gasTracker = document.getElementById("gasTracker");
-  const gasDollar = document.getElementById("gasDollar");
   const activityList = document.getElementById("activityList");
   const leaderboardList = document.getElementById("leaderboardList");
   const buyBtn = document.getElementById("buyTokenBtn");
@@ -29,14 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // MOCKED gas fetch
   async function fetchGas() {
     try {
-      const res = await fetch("https://api.owlracle.info/v4/base/gas");
-      const data = await res.json();
-      const gwei = data.speeds[1].gasPrice / 1e9;
-      const dollar = (gwei * 0.00000002).toFixed(4); // dummy ETH-USD estimate
+      const gwei = 8.3;
       gasTracker.innerHTML = `<strong>Base Gas:</strong> ${gwei.toFixed(2)} Gwei`;
-      gasDollar.innerHTML = `$${dollar}`;
     } catch {
       gasTracker.innerHTML = `<span style="color:red;">Failed to load gas</span>`;
     }
@@ -45,33 +41,37 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchGas();
   setInterval(fetchGas, 15000);
 
+  // MOCKED leaderboard
   const dummyLeaders = [
-    { name: "Spawniz", xp: 350 },
-    { name: "BaseLord", xp: 290 },
-    { name: "ZoraMaxxer", xp: 220 }
+    { name: "Spawniz", xp: 420 },
+    { name: "BaseBoi", xp: 369 },
+    { name: "ZoraMaxxer", xp: 215 }
   ];
   if (leaderboardList) {
     leaderboardList.innerHTML = dummyLeaders.map((n, i) => `<li>#${i + 1} – ${n.name}: ${n.xp} XP</li>`).join("");
   }
 
+  // MOCKED activity
   const dummyActivity = [
-    "Jessepollak coined MemeX", 
-    "Spawniz minted GlitchLord", 
-    "You bought NFT for 0.003 ETH"
+    "Spawniz coined WarpToken",
+    "You minted MemeX",
+    "BaseBoi traded for 0.01 ETH"
   ];
   if (activityList) {
     activityList.innerHTML = dummyActivity.map(a => `<li>📈 ${a}</li>`).join("");
   }
 
+  // MOCKED feed
   const dummyFeed = [
-    { user: "BaseLord", action: "minted Token A" },
-    { user: "ZoraMaxxer", action: "coined MemePack" },
-    { user: "Spawniz", action: "bought WarpNFT" }
+    { user: "ZoraMaxxer", action: "minted WarpDrop" },
+    { user: "BaseBoi", action: "coined GAS99" },
+    { user: "Spawniz", action: "bought OnchainChamp" }
   ];
   if (feedList) {
     feedList.innerHTML = dummyFeed.map(f => `<li>🔥 <strong>${f.user}</strong> ${f.action}</li>`).join("");
   }
 
+  // MOCKED buy flow
   if (buyBtn) {
     buyBtn.addEventListener("click", () => {
       const amt = document.getElementById("tokenAmount").value;
@@ -97,10 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => document.body.removeChild(confetti), 1500);
   }
 
-  // XP Mock Update
+  // MOCKED XP & Streak
   if (xpDisplay && streakDisplay) {
-    xpDisplay.innerText = "125 XP 🔥";
-    streakDisplay.innerText = "Streak: 5 Days";
+    xpDisplay.innerText = "1337 XP 🔥";
+    streakDisplay.innerText = "Streak: 7 Days";
   }
 });
 
