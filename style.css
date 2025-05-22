@@ -1,120 +1,111 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: #0f0f0f;
-  color: #f0f0f0;
-  line-height: 1.6;
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const walletDisplay = document.getElementById("headerWalletAddress") || document.getElementById("walletAddress");
+  const connectBtn = document.getElementById("connectWallet") || document.getElementById("connectBtn");
+  const gasTracker = document.getElementById("gasTracker");
+  const activityList = document.getElementById("activityList");
+  const leaderboardList = document.getElementById("leaderboardList");
+  const buyBtn = document.getElementById("buyTokenBtn");
+  const buyStatus = document.getElementById("buyStatus");
+  const feedList = document.getElementById("feedList");
+  const streakDisplay = document.getElementById("streakDisplay");
+  const xpDisplay = document.getElementById("xpDisplay");
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #141414;
-  border-bottom: 1px solid #222;
-}
+  let userAddress = null;
 
-.logo {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #10b981;
-}
+  connectBtn.addEventListener("click", async () => {
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+        userAddress = accounts[0];
+        walletDisplay.innerText = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
+        document.getElementById("connectedWalletInfo")?.style.display = "flex";
+        connectBtn.style.display = "none";
+      } catch {
+        alert("Connection failed");
+      }
+    } else {
+      alert("No wallet found");
+    }
+  });
 
-.network-label {
-  font-size: 0.8rem;
-  color: #888;
-  margin-left: 0.4rem;
-}
+  async function fetchGas() {
+    try {
+      const res = await fetch("https://api.owlracle.info/v4/base/gas");
+      const data = await res.json();
+      const gwei = data.speeds[1].gasPrice / 1e9;
+      gasTracker.innerText = `${gwei.toFixed(2)} Gwei`;
+    } catch {
+      gasTracker.innerText = `Error loading gas`;
+    }
+  }
 
-.connect-btn {
-  background-color: #10b981;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
+  fetchGas();
+  setInterval(fetchGas, 15000);
 
-.connect-btn:hover {
-  background-color: #0e9f6e;
-}
+  const dummyLeaders = [
+    { name: "Spawniz", xp: 350 },
+    { name: "BaseLord", xp: 290 },
+    { name: "ZoraMaxxer", xp: 220 }
+  ];
+  if (leaderboardList) {
+    leaderboardList.innerHTML = dummyLeaders.map((n, i) => `<li>#${i + 1} – ${n.name}: ${n.xp} XP</li>`).join("");
+  }
 
-.main-content {
-  padding: 1rem;
-  max-width: 720px;
-  margin: 0 auto;
-}
+  const dummyActivity = [
+    "Jessepollak coined MemeX",
+    "Spawniz minted GlitchLord",
+    "You bought NFT for 0.003 ETH"
+  ];
+  if (activityList) {
+    activityList.innerHTML = dummyActivity.map(a => `<li>📈 ${a}</li>`).join("");
+  }
 
-.card {
-  background-color: #1c1c1c;
-  border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
+  const dummyFeed = [
+    { user: "BaseLord", action: "minted Token A" },
+    { user: "ZoraMaxxer", action: "coined MemePack" },
+    { user: "Spawniz", action: "bought WarpNFT" }
+  ];
+  if (feedList) {
+    feedList.innerHTML = dummyFeed.map(f => `<li>🔥 <strong>${f.user}</strong> ${f.action}</li>`).join("");
+  }
 
-h2 {
-  margin-top: 0;
-  color: #fff;
-  font-size: 1.2rem;
-}
+  if (buyBtn) {
+    buyBtn.addEventListener("click", () => {
+      const amt = document.getElementById("tokenAmount").value;
+      if (!userAddress) return buyStatus.innerText = "Connect wallet first.";
+      if (!amt) return buyStatus.innerText = "Enter amount.";
+      buyStatus.innerHTML = `Buying ${amt} ETH worth of WarpAI...`;
+      setTimeout(() => {
+        buyStatus.innerHTML = `<span style="color:green;">Success! 🎉</span>`;
+        confettiAnimation();
+      }, 1500);
+    });
+  }
 
-button {
-  background-color: #10b981;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-top: 0.5rem;
-}
+  function confettiAnimation() {
+    const confetti = document.createElement("div");
+    confetti.innerText = "🎊";
+    confetti.style.position = "fixed";
+    confetti.style.top = "50%";
+    confetti.style.left = "50%";
+    confetti.style.transform = "translate(-50%, -50%)";
+    confetti.style.fontSize = "2rem";
+    document.body.appendChild(confetti);
+    setTimeout(() => document.body.removeChild(confetti), 1500);
+  }
 
-button:hover {
-  background-color: #0e9f6e;
-}
+  // XP Mock Update
+  if (xpDisplay && streakDisplay) {
+    xpDisplay.innerText = "125 XP 🔥";
+    streakDisplay.innerText = "Streak: 5 Days";
+  }
+});
 
-.footer-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #141414;
-  border-top: 1px solid #222;
-  display: flex;
-  justify-content: space-around;
-  padding: 0.4rem 0;
-}
-
-.footer-nav button {
-  background: none;
-  border: none;
-  color: #888;
-  font-size: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  flex: 1;
-}
-
-.footer-nav button.active {
-  color: #10b981;
-  font-weight: bold;
-}
-
-.tab-section {
-  display: none;
-}
-
-.tab-section.active {
-  display: block;
-}
-
-.gas-bar {
-  height: 8px;
-  background: linear-gradient(to right, #10b981, #facc15, #ef4444);
-  border-radius: 4px;
-  margin-top: 0.5rem;
+function switchTab(tabName) {
+  document.querySelectorAll(".tab-section").forEach(el => el.style.display = "none");
+  const targetTab = document.querySelector(`#${tabName}`);
+  if (targetTab) targetTab.style.display = "block";
+  document.querySelectorAll(".footer-nav button").forEach(btn => btn.classList.remove("active"));
+  const btn = Array.from(document.querySelectorAll(".footer-nav button")).find(b => b.dataset.tab === tabName);
+  if (btn) btn.classList.add("active");
 }
