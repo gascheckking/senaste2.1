@@ -1,88 +1,107 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const connectBtn = document.getElementById("connectWallet");
-  const xpDisplay = document.getElementById("xpDisplay");
-  const activityList = document.getElementById("activityList");
-  const feedList = document.getElementById("feedList");
-  const buyTokenBtn = document.getElementById("buyTokenBtn");
-  const buyStatus = document.getElementById("buyStatus");
+  const connectBtn = document.getElementById("connectBtn");
+  const walletAddressDiv = document.getElementById("walletAddress");
+  const claimXPBtn = document.getElementById("claimXPBtn");
+  const rewardsList = document.getElementById("rewardsList");
   const leaderboardList = document.getElementById("leaderboardList");
-  const tabs = document.querySelectorAll(".tab-btn");
-  const sections = document.querySelectorAll(".tab-section");
+  const profileInfo = document.getElementById("profileInfo");
+  const activitySummary = document.getElementById("activitySummary");
+  const trackData = document.getElementById("trackData");
 
   let userAddress = null;
-  let xpPoints = 0;
+  let userXP = 0;
+  let rewards = [
+    { name: "First Mint Bonus", claimed: true },
+    { name: "5 Day Streak", claimed: false },
+    { name: "Special Airdrop", claimed: false },
+  ];
 
-  // Wallet connect
+  // Tab switching
+  const tabButtons = document.querySelectorAll("nav .tab-btn");
+  const tabContents = document.querySelectorAll("main .tab-content");
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      tabButtons.forEach(b => b.classList.remove("active"));
+      tabContents.forEach(tc => tc.classList.remove("active"));
+
+      btn.classList.add("active");
+      const target = btn.getAttribute("data-tab");
+      document.getElementById(target).classList.add("active");
+    });
+  });
+
   connectBtn.addEventListener("click", async () => {
     if (window.ethereum) {
       try {
         const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
         userAddress = accounts[0];
-        connectBtn.innerText = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
+        walletAddressDiv.innerText = userAddress;
         loadUserData();
-      } catch (err) {
-        alert("Connection failed.");
+      } catch {
+        walletAddressDiv.innerText = "Connection failed.";
       }
     } else {
-      alert("No Ethereum wallet found.");
+      walletAddressDiv.innerText = "No wallet found.";
     }
   });
 
-  // Load user data (mocked)
   function loadUserData() {
-    xpPoints = 125; // mock XP
-    xpDisplay.innerText = xpPoints + " XP 🔥";
+    // Mock activity summary
+    activitySummary.innerHTML = `
+      <p><strong>+2.50 ETH</strong> Earned</p>
+      <p><strong>-1.23 ETH</strong> Spent</p>
+      <p>Minted Token #123 via Zora</p>
+    `;
 
-    // Mock activity feed
-    const activities = [
-      "Jessepollak coined MemeX",
-      "Spawniz minted GlitchLord",
-      "You bought NFT for 0.003 ETH",
-    ];
-    activityList.innerHTML = activities.map(a => `<li>📈 ${a}</li>`).join("");
-
-    // Mock live feed
-    const live = [
-      "BaseLord minted Token A",
-      "ZoraMaxxer coined MemePack",
-      "Spawniz bought WarpNFT",
-    ];
-    feedList.innerHTML = live.map(l => `<li>🔥 <strong>${l.split(" ")[0]}</strong> ${l.split(" ").slice(1).join(" ")}</li>`).join("");
+    // Mock profile info
+    profileInfo.innerHTML = `
+      <p>Address: ${userAddress}</p>
+      <p>XP: ${userXP} points • 5-day streak</p>
+    `;
 
     // Mock leaderboard
     const leaderboard = [
       { user: "Alice", xp: 1200 },
       { user: "Dave", xp: 980 },
-      { user: "Spawniz", xp: 700 },
+      { user: "Spawniz", xp: 700 }
     ];
     leaderboardList.innerHTML = leaderboard
-      .map((p, i) => `<li><strong>#${i + 1}</strong> ${p.user} - ${p.xp} XP</li>`)
+      .map(u => `<li>${u.user} - ${u.xp} XP</li>`)
+      .join("");
+
+    // Mock track data
+    trackData.innerHTML = "Tracking all onchain activity...";
+
+    // Show rewards list
+    updateRewardsUI();
+  }
+
+  function updateRewardsUI() {
+    rewardsList.innerHTML = rewards
+      .map(r => {
+        if (r.claimed) return `<li>${r.name} - Claimed</li>`;
+        else return `<li>${r.name} - <button class="claim-btn">${r.claimed ? "Claimed" : "Claim"}</button></li>`;
+      })
       .join("");
   }
 
-  // Buy token mock
-  buyTokenBtn?.addEventListener("click", () => {
-    buyStatus.innerText = "Minting WarpAI Coin...";
-    setTimeout(() => {
-      buyStatus.innerText = "WarpAI Coin minted successfully!";
-      xpPoints += 50;
-      xpDisplay.innerText = xpPoints + " XP 🔥";
-    }, 1500);
-  });
-
-  // Tab switching
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      tabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-
-      const target = tab.getAttribute("data-tab");
-      sections.forEach(section => {
-        section.classList.toggle("active", section.id === target);
+  document.body.addEventListener("click", e => {
+    if (e.target.classList.contains("claim-btn")) {
+      const li = e.target.closest("li");
+      const rewardName = li.textContent.replace(" - Claim", "");
+      alert(`Reward claimed: ${rewardName}`);
+      rewards = rewards.map(r => {
+        if (r.name === rewardName) r.claimed = true;
+        return r;
       });
-    });
+      updateRewardsUI();
+    }
   });
 
-  // Default active tab
-  tabs[0].click();
+  claimXPBtn.addEventListener("click", () => {
+    userXP += 100;
+    alert("XP claimed! Your new XP: " + userXP);
+    loadUserData();
+  });
 });
