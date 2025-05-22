@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const walletDisplay = document.getElementById("headerWalletAddress") || document.getElementById("walletAddress");
   const connectBtn = document.getElementById("connectWallet") || document.getElementById("connectBtn");
   const gasTracker = document.getElementById("gasTracker");
+  const gasDollar = document.getElementById("gasDollar");
   const activityList = document.getElementById("activityList");
   const leaderboardList = document.getElementById("leaderboardList");
   const buyBtn = document.getElementById("buyTokenBtn");
@@ -9,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const feedList = document.getElementById("feedList");
   const streakDisplay = document.getElementById("streakDisplay");
   const xpDisplay = document.getElementById("xpDisplay");
-  const gasValueDisplay = document.getElementById("gasValue");
 
   let userAddress = null;
 
@@ -34,11 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await fetch("https://api.owlracle.info/v4/base/gas");
       const data = await res.json();
       const gwei = data.speeds[1].gasPrice / 1e9;
-      const usd = gwei * 0.000000001 * 21000 * data.usdPrice; // rough ETH transfer cost in USD
-      gasTracker.style.width = Math.min(100, Math.floor((gwei / 50) * 100)) + "%";
-      gasValueDisplay.innerText = `${gwei.toFixed(2)} Gwei ($${usd.toFixed(2)})`;
+      const dollar = (gwei * 0.00000002).toFixed(4); // dummy ETH-USD estimate
+      gasTracker.innerHTML = `<strong>Base Gas:</strong> ${gwei.toFixed(2)} Gwei`;
+      gasDollar.innerHTML = `$${dollar}`;
     } catch {
-      gasValueDisplay.innerHTML = `<span style="color:red;">Failed to load gas</span>`;
+      gasTracker.innerHTML = `<span style="color:red;">Failed to load gas</span>`;
     }
   }
 
@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const dummyActivity = [
-    "Jessepollak coined MemeX",
-    "Spawniz minted GlitchLord",
+    "Jessepollak coined MemeX", 
+    "Spawniz minted GlitchLord", 
     "You bought NFT for 0.003 ETH"
   ];
   if (activityList) {
@@ -97,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => document.body.removeChild(confetti), 1500);
   }
 
+  // XP Mock Update
   if (xpDisplay && streakDisplay) {
     xpDisplay.innerText = "125 XP 🔥";
     streakDisplay.innerText = "Streak: 5 Days";
