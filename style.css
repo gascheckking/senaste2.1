@@ -1,111 +1,140 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const walletDisplay = document.getElementById("headerWalletAddress") || document.getElementById("walletAddress");
-  const connectBtn = document.getElementById("connectWallet") || document.getElementById("connectBtn");
-  const gasTracker = document.getElementById("gasTracker");
-  const activityList = document.getElementById("activityList");
-  const leaderboardList = document.getElementById("leaderboardList");
-  const buyBtn = document.getElementById("buyTokenBtn");
-  const buyStatus = document.getElementById("buyStatus");
-  const feedList = document.getElementById("feedList");
-  const streakDisplay = document.getElementById("streakDisplay");
-  const xpDisplay = document.getElementById("xpDisplay");
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #0f0f0f;
+  color: #f0f0f0;
+  line-height: 1.6;
+}
 
-  let userAddress = null;
+header {
+  padding: 1rem;
+  background: #141414;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+}
 
-  connectBtn.addEventListener("click", async () => {
-    if (window.ethereum) {
-      try {
-        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-        userAddress = accounts[0];
-        walletDisplay.innerText = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
-        document.getElementById("connectedWalletInfo")?.style.display = "flex";
-        connectBtn.style.display = "none";
-      } catch {
-        alert("Connection failed");
-      }
-    } else {
-      alert("No wallet found");
-    }
-  });
+.header-left {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #10ffb0;
+}
 
-  async function fetchGas() {
-    try {
-      const res = await fetch("https://api.owlracle.info/v4/base/gas");
-      const data = await res.json();
-      const gwei = data.speeds[1].gasPrice / 1e9;
-      gasTracker.innerText = `${gwei.toFixed(2)} Gwei`;
-    } catch {
-      gasTracker.innerText = `Error loading gas`;
-    }
-  }
+.header-left span {
+  color: #aaa;
+  font-weight: normal;
+  margin-left: 0.5rem;
+}
 
-  fetchGas();
-  setInterval(fetchGas, 15000);
+.wallet-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
-  const dummyLeaders = [
-    { name: "Spawniz", xp: 350 },
-    { name: "BaseLord", xp: 290 },
-    { name: "ZoraMaxxer", xp: 220 }
-  ];
-  if (leaderboardList) {
-    leaderboardList.innerHTML = dummyLeaders.map((n, i) => `<li>#${i + 1} – ${n.name}: ${n.xp} XP</li>`).join("");
-  }
+.connect-btn {
+  background: #10ffb0;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-  const dummyActivity = [
-    "Jessepollak coined MemeX",
-    "Spawniz minted GlitchLord",
-    "You bought NFT for 0.003 ETH"
-  ];
-  if (activityList) {
-    activityList.innerHTML = dummyActivity.map(a => `<li>📈 ${a}</li>`).join("");
-  }
+.main-content {
+  padding: 1rem;
+}
 
-  const dummyFeed = [
-    { user: "BaseLord", action: "minted Token A" },
-    { user: "ZoraMaxxer", action: "coined MemePack" },
-    { user: "Spawniz", action: "bought WarpNFT" }
-  ];
-  if (feedList) {
-    feedList.innerHTML = dummyFeed.map(f => `<li>🔥 <strong>${f.user}</strong> ${f.action}</li>`).join("");
-  }
+section.card {
+  background: #1a1a1a;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
 
-  if (buyBtn) {
-    buyBtn.addEventListener("click", () => {
-      const amt = document.getElementById("tokenAmount").value;
-      if (!userAddress) return buyStatus.innerText = "Connect wallet first.";
-      if (!amt) return buyStatus.innerText = "Enter amount.";
-      buyStatus.innerHTML = `Buying ${amt} ETH worth of WarpAI...`;
-      setTimeout(() => {
-        buyStatus.innerHTML = `<span style="color:green;">Success! 🎉</span>`;
-        confettiAnimation();
-      }, 1500);
-    });
-  }
+.card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
-  function confettiAnimation() {
-    const confetti = document.createElement("div");
-    confetti.innerText = "🎊";
-    confetti.style.position = "fixed";
-    confetti.style.top = "50%";
-    confetti.style.left = "50%";
-    confetti.style.transform = "translate(-50%, -50%)";
-    confetti.style.fontSize = "2rem";
-    document.body.appendChild(confetti);
-    setTimeout(() => document.body.removeChild(confetti), 1500);
-  }
+.card p {
+  font-size: 0.9rem;
+  color: #ccc;
+}
 
-  // XP Mock Update
-  if (xpDisplay && streakDisplay) {
-    xpDisplay.innerText = "125 XP 🔥";
-    streakDisplay.innerText = "Streak: 5 Days";
-  }
-});
+button.buy-btn,
+button.claim-btn {
+  background: #10ffb0;
+  border: none;
+  color: #000;
+  padding: 0.4rem 0.7rem;
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-function switchTab(tabName) {
-  document.querySelectorAll(".tab-section").forEach(el => el.style.display = "none");
-  const targetTab = document.querySelector(`#${tabName}`);
-  if (targetTab) targetTab.style.display = "block";
-  document.querySelectorAll(".footer-nav button").forEach(btn => btn.classList.remove("active"));
-  const btn = Array.from(document.querySelectorAll(".footer-nav button")).find(b => b.dataset.tab === tabName);
-  if (btn) btn.classList.add("active");
+.gas-meter {
+  background: #222;
+  border-radius: 6px;
+  height: 10px;
+  margin: 0.5rem 0;
+  position: relative;
+}
+
+.gas-progress {
+  height: 100%;
+  background: linear-gradient(to right, #00ff99, #ffcc00, #ff3333);
+  width: 40%;
+  border-radius: 6px;
+}
+
+.footer-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #000;
+  border-top: 1px solid #333;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.3rem 0;
+  z-index: 100;
+}
+
+.footer-tab {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.footer-tab i {
+  font-size: 1.4rem;
+}
+
+.footer-tab.active {
+  color: #10ffb0;
+  font-weight: bold;
+}
+
+.transaction-feed li,
+#activityList li,
+#feedList li,
+#leaderboardList li {
+  list-style: none;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #222;
 }
