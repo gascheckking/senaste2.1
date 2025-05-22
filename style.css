@@ -1,137 +1,209 @@
+/* Global */
 body {
   margin: 0;
-  padding: 0;
-  background-color: #0f0f0f;
-  color: #fff;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
 }
 
-.app-header {
+a {
+  color: #0ff;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Header */
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background: #111;
+  background-color: #1f1f1f;
+  padding: 1rem 2rem;
   border-bottom: 1px solid #222;
 }
 
-.header-left h1 {
-  font-size: 1.2rem;
+.logo h1 {
   margin: 0;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #00ffaa;
 }
 
-.header-left .warpai {
-  color: #00ffae;
-}
-
-.header-left .tracker-label {
+.logo .tracker {
   color: #aaa;
-  font-weight: normal;
+  font-weight: 400;
+  margin-left: 0.4rem;
 }
 
-.header-right {
+.wallet-section {
   display: flex;
-  gap: 1rem;
   align-items: center;
+  gap: 1rem;
 }
 
-.connect-btn {
-  background-color: #00c67c;
-  color: white;
+#walletAddress, #xpDisplay {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #33ff99;
+}
+
+#connectWallet {
+  background-color: #00cc66;
   border: none;
-  padding: 0.4rem 0.8rem;
-  border-radius: 5px;
+  padding: 0.6rem 1.2rem;
+  color: white;
+  font-weight: 700;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.25s ease;
 }
 
-.connect-btn:hover {
-  background-color: #00a868;
+#connectWallet:hover {
+  background-color: #009944;
 }
 
-.xp-display {
-  font-weight: bold;
+/* Gas Tracker */
+.gas-bar {
+  background-color: #232323;
+  padding: 0.7rem 2rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #33cc33;
+  border-bottom: 1px solid #2a2a2a;
 }
 
-.gas-section {
-  text-align: center;
-  padding: 0.5rem;
-  background: #1a1a1a;
-  font-size: 0.9rem;
-  color: #0f0;
-}
-
+/* Main content */
 main {
-  padding: 1rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
 .card {
-  background: #1a1a1a;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  background-color: #1e1e1e;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,255,170,0.15);
 }
 
 .card h2 {
   margin-top: 0;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: #00ffaa;
+  margin-bottom: 1rem;
 }
 
-.tab-section {
-  display: none;
+/* Activity section */
+.activity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-size: 1.05rem;
+  color: #ddd;
 }
 
-.tab-section.active {
-  display: block;
+.activity div {
+  flex: 1 1 45%;
 }
 
+.activity button {
+  background-color: #00cc66;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.activity button:hover {
+  background-color: #009944;
+}
+
+/* Streak bar */
+.streak-bar {
+  display: flex;
+  height: 14px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 8px;
+  box-shadow: inset 0 0 4px #00ffaeaa;
+}
+
+.bar {
+  flex-grow: 1;
+}
+
+.green {
+  background-color: #00ffae;
+  flex-basis: 40%;
+}
+
+.yellow {
+  background-color: #ffc233;
+  flex-basis: 20%;
+}
+
+.red {
+  background-color: #ff3b3b;
+  flex-basis: 40%;
+}
+
+/* QuickBuy buttons */
+.buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.buttons button {
+  flex: 1 1 auto;
+  background-color: #00cc66;
+  border: none;
+  padding: 0.75rem 1.2rem;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttons button:hover {
+  background-color: #009944;
+}
+
+/* Footer navigation */
 .footer-nav {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: #111;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #1a1a1a;
   border-top: 1px solid #222;
   display: flex;
   justify-content: space-around;
-  padding: 0.4rem 0;
+  padding: 0.5rem 0;
+  z-index: 100;
 }
 
-.footer-nav .tab-btn {
+.footer-nav button {
   background: none;
   border: none;
-  color: #aaa;
-  font-size: 0.8rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  color: #777;
+  font-weight: 700;
+  font-size: 0.9rem;
   cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: color 0.25s ease;
 }
 
-.footer-nav .tab-btn.active {
-  color: #00ffae;
-}
-
-input[type="number"] {
-  padding: 0.5rem;
-  width: 100%;
-  margin-bottom: 0.5rem;
-  background: #111;
-  color: #fff;
-  border: 1px solid #444;
-  border-radius: 5px;
-}
-
-button {
-  padding: 0.5rem;
-  background: #00c67c;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #00a868;
+.footer-nav button.active,
+.footer-nav button:hover {
+  color: #00ffaa;
+  border-bottom: 2px solid #00ffaa;
 }
