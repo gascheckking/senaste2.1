@@ -1,61 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WarpAI – Onchain Activity Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-</head>
-<body>
-  <header class="app-header">
-    <div class="logo-main">
-      <span class="logo-symbol"><img src="logo.png" alt="WarpAI Logo" /></span>
-      <h1>WarpAI</h1>
-      <p class="subtitle">Onchain Activity Tracker</p>
-    </div>
-    <div class="wallet-section">
-      <div id="xpDisplay">0 XP 🔥</div>
-      <button id="connectWallet">Connect Wallet</button>
-      <button id="disconnectWallet" style="display:none;">Disconnect</button>
-      <div id="walletAddress" class="wallet-address"></div>
-    </div>
-  </header>
+document.addEventListener("DOMContentLoaded", () => {
+  const walletDisplay = document.getElementById("headerWalletAddress");
+  const connectBtn = document.getElementById("connectWallet");
 
-  <main class="main">
-    <section class="overview">
-      <h2>📊 Wallet Activity</h2>
-      <div class="activity-summary">
-        <div>+2.50 ETH Earned</div>
-        <div>-1.23 ETH Spent</div>
-      </div>
-      <button id="claimXP">Claim XP</button>
-      <p id="streak">🔥 5 Day Streak</p>
-      <div class="gas-meter"><div id="gasBar"></div></div>
-    </section>
+  let userAddress = null;
 
-    <section class="quick-actions">
-      <h2>QuickBuy & Mint</h2>
-      <button>Mint WarpAI Coin</button>
-      <button>Buy trending token</button>
-      <button>Bridge ETH from Mainnet</button>
-    </section>
+  connectBtn.addEventListener("click", async () => {
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+        userAddress = accounts[0];
+        walletDisplay.innerText = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
+        document.getElementById("connectedWalletInfo").style.display = "flex";
+        connectBtn.style.display = "none";
+      } catch {
+        alert("Connection failed");
+      }
+    } else {
+      alert("No wallet found");
+    }
+  });
 
-    <section class="favorites">
-      <h2>Favorites & Following</h2>
-      <div id="activityFeed">Loading activity...</div>
-    </section>
-  </main>
+  // Dummy XP streak
+  document.getElementById("headerXP").innerText = "300 XP";
+  document.getElementById("headerStreak").innerText = "5";
 
-  <nav class="footer-nav">
-    <button data-tab="home" class="active">Home</button>
-    <button data-tab="wallet">Wallet</button>
-    <button data-tab="leaderboard">Leaderboard</button>
-    <button data-tab="rewards">Rewards</button>
-    <button data-tab="profile">Profile</button>
-    <button data-tab="invite">Invite</button>
-  </nav>
-
-  <script src="app.js"></script>
-</body>
-</html>
+  // Dummy Activity Feed
+  const activityFeed = document.getElementById("transactionFeed");
+  activityFeed.innerHTML = `
+    <div class="tx">✅ Minted Token #123 via Zora</div>
+    <div class="tx">🛒 Bought NFT on OpenSea</div>
+    <div class="tx">📤 Sent 0.001 ETH</div>
+  `;
+});
