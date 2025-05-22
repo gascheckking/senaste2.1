@@ -5,173 +5,102 @@ body {
   background-color: #0f0f0f;
   color: #f0f0f0;
   line-height: 1.6;
-  max-width: 480px;
-  margin: 0 auto;
 }
 
-.app-header {
-  padding: 1rem 1rem 0.5rem;
-  background: #141414;
-  border-bottom: 1px solid #333;
-}
-
-.header-content {
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-}
-
-.logo-section {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.logo-main {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #00c67c;
-}
-
-.network-line {
-  width: 1px;
-  height: 20px;
-  background: #333;
-}
-
-.sub-logo {
-  font-size: 0.8rem;
-  color: #888;
-}
-
-.wallet-section {
-  text-align: right;
-}
-
-.wallet-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.wallet-address-display {
-  font-size: 0.75rem;
-  color: #ccc;
-}
-
-.xp-streak-display {
-  font-size: 0.7rem;
-  color: #aaa;
-}
-
-.connect-btn {
-  background: #00c67c;
-  border: none;
-  padding: 0.4rem 0.7rem;
-  font-size: 0.75rem;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 0.3rem;
-}
-
-.connect-btn:hover {
-  background: #00a868;
-}
-
-.gas-bar {
-  background: #1e1e1e;
-  color: #00ffcc;
-  text-align: center;
-  padding: 0.3rem;
-  font-size: 0.75rem;
-  border-top: 1px solid #222;
+  padding: 1rem;
+  background-color: #141414;
   border-bottom: 1px solid #222;
 }
 
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #10b981;
+}
+
+.network-label {
+  font-size: 0.8rem;
+  color: #888;
+  margin-left: 0.4rem;
+}
+
+.connect-btn {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.connect-btn:hover {
+  background-color: #0e9f6e;
+}
+
 .main-content {
-  padding: 1rem 1rem 4rem;
+  padding: 1rem;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .card {
-  background: #1a1a1a;
+  background-color: #1c1c1c;
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 1rem;
 }
 
-.card h2 {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-input[type="number"] {
-  width: 100%;
-  padding: 0.4rem;
-  border-radius: 4px;
-  border: 1px solid #444;
-  background: #0f0f0f;
+h2 {
+  margin-top: 0;
   color: #fff;
-  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
 }
 
 button {
-  background: #00c67c;
-  border: none;
+  background-color: #10b981;
   color: white;
-  padding: 0.4rem 1rem;
-  border-radius: 4px;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
 }
 
 button:hover {
-  background: #00a868;
-}
-
-.list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.list li {
-  padding: 0.4rem 0;
-  border-bottom: 1px solid #2a2a2a;
-  font-size: 0.85rem;
-}
-
-.status-text {
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
+  background-color: #0e9f6e;
 }
 
 .footer-nav {
   position: fixed;
   bottom: 0;
-  left: 0;
   width: 100%;
-  max-width: 480px;
-  background: #101010;
+  background-color: #141414;
   border-top: 1px solid #222;
   display: flex;
   justify-content: space-around;
-  padding: 0.3rem 0;
-  z-index: 1000;
+  padding: 0.4rem 0;
 }
 
-.footer-tab {
+.footer-nav button {
   background: none;
   border: none;
   color: #888;
-  font-size: 0.7rem;
-  text-align: center;
-  flex: 1;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
+  flex: 1;
 }
 
-.footer-tab.active {
-  color: #00c67c;
+.footer-nav button.active {
+  color: #10b981;
   font-weight: bold;
 }
 
@@ -181,4 +110,11 @@ button:hover {
 
 .tab-section.active {
   display: block;
+}
+
+.gas-bar {
+  height: 8px;
+  background: linear-gradient(to right, #10b981, #facc15, #ef4444);
+  border-radius: 4px;
+  margin-top: 0.5rem;
 }
