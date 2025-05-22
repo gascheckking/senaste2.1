@@ -3,69 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WarpAI – Onchain Activity Tracker</title>
+  <title>WarpAI – Onchain Tracker</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
-<body data-theme="dark">
+<body>
   <header class="app-header">
-    <div class="header-content">
-      <div class="logo-main">
-        <span class="logo-symbol">✨</span> WarpAI
-      </div>
-      <div class="app-subtitle">Onchain Activity Tracker</div>
-      <div class="wallet-section">
-        <div class="xp-badge" id="xpDisplay">0 XP 🔥</div>
-        <button class="connect-btn" id="connectWallet">Connect Wallet</button>
-        <div class="wallet-info" id="connectedWalletInfo" style="display: none;">
-          <span class="wallet-address-display" id="headerWalletAddress"></span>
-          <span class="xp-streak-display" id="headerXPStreak">
-            <span id="headerXP">0 XP</span>
-            <span class="streak-icon">🔥</span>
-            <span id="headerStreak">0</span>
-          </span>
-        </div>
-      </div>
+    <div class="header-left">
+      <h1>✨ <span class="warpai">WarpAI</span> <span class="tracker-label">Onchain Tracker</span></h1>
+    </div>
+    <div class="header-right">
+      <div class="xp-display" id="xpDisplay">0 XP 🔥</div>
+      <button id="connectWallet" class="connect-btn">Connect Wallet</button>
     </div>
   </header>
 
-  <main class="main-content">
+  <div class="gas-section" id="gasTracker">Loading gas...</div>
+
+  <main>
     <section id="home" class="tab-section">
-      <h2>Activity Feed</h2>
-      <ul id="activityList" class="activity-feed"></ul>
+      <div class="card">
+        <h2>📊 Activity Feed</h2>
+        <ul id="activityList"></ul>
+      </div>
+      <div class="card">
+        <h2>🔥 Live Feed</h2>
+        <ul id="feedList"></ul>
+      </div>
+      <div class="card">
+        <h2>🥽 Gas Tracker</h2>
+        <div id="gasData">Loading...</div>
+      </div>
     </section>
 
-    <section id="track" class="tab-section" style="display:none;">
-      <h2>Wallet Tracker</h2>
-      <div id="gasTracker"></div>
-      <ul id="feedList" class="feed-log"></ul>
+    <section id="notifications" class="tab-section" style="display:none">
+      <div class="card">
+        <h2>🔔 Notifications</h2>
+        <p>No notifications yet.</p>
+      </div>
     </section>
 
-    <section id="leaderboard" class="tab-section" style="display:none;">
-      <h2>Leaderboard</h2>
-      <ul id="leaderboardList"></ul>
+    <section id="explore" class="tab-section" style="display:none">
+      <div class="card">
+        <h2>🧭 Explore</h2>
+        <p>Coming soon...</p>
+      </div>
     </section>
 
-    <section id="profile" class="tab-section" style="display:none;">
-      <h2>Profile</h2>
-      <p>Address: <span id="walletAddress"></span></p>
-      <p id="streakDisplay">Streak: 0 Days</p>
-    </section>
-
-    <section id="quickbuy" class="tab-section" style="display:none;">
-      <h2>Quick Buy</h2>
-      <input type="number" id="tokenAmount" placeholder="ETH amount" />
-      <button id="buyTokenBtn">Buy</button>
-      <p id="buyStatus"></p>
+    <section id="profile" class="tab-section" style="display:none">
+      <div class="card">
+        <h2>👤 Profile</h2>
+        <div id="connectedWalletInfo" style="display:none">
+          <p id="headerWalletAddress"></p>
+          <p id="streakDisplay">Streak: 0</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2>🧪 Mint Tester</h2>
+        <input type="number" id="tokenAmount" placeholder="ETH amount" />
+        <button id="buyTokenBtn">Mint WarpAI Coin</button>
+        <p id="buyStatus"></p>
+      </div>
     </section>
   </main>
 
   <nav class="footer-nav">
-    <button class="footer-tab active" data-tab="home" onclick="switchTab('home')">🏠 Home</button>
-    <button class="footer-tab" data-tab="track" onclick="switchTab('track')">📊 Tracker</button>
-    <button class="footer-tab" data-tab="leaderboard" onclick="switchTab('leaderboard')">🏆 Leaderboard</button>
-    <button class="footer-tab" data-tab="quickbuy" onclick="switchTab('quickbuy')">⚡ QuickBuy</button>
-    <button class="footer-tab" data-tab="profile" onclick="switchTab('profile')">👤 Profile</button>
+    <button class="tab-btn active" data-tab="home" onclick="switchTab('home')">🏠<span>Home</span></button>
+    <button class="tab-btn" data-tab="notifications" onclick="switchTab('notifications')">🔔<span>Notifications</span></button>
+    <button class="tab-btn" data-tab="explore" onclick="switchTab('explore')">🔍<span>Explore</span></button>
+    <button class="tab-btn" data-tab="profile" onclick="switchTab('profile')">👤<span>Profile</span></button>
   </nav>
 
   <script src="app.js"></script>
