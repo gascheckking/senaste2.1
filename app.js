@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const walletDisplay = document.getElementById("headerWalletAddress") || document.getElementById("walletAddress");
-  const connectBtn = document.getElementById("connectWallet") || document.getElementById("connectBtn");
+  const walletDisplay = document.getElementById("headerWalletAddress");
+  const connectBtn = document.getElementById("connectWallet");
   const gasTracker = document.getElementById("gasTracker");
   const activityList = document.getElementById("activityList");
   const leaderboardList = document.getElementById("leaderboardList");
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
         userAddress = accounts[0];
         walletDisplay.innerText = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
-        document.getElementById("connectedWalletInfo")?.style.display = "flex";
+        document.getElementById("connectedWalletInfo").style.display = "block";
         connectBtn.style.display = "none";
       } catch {
         alert("Connection failed");
@@ -52,8 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const dummyActivity = [
-    "Jessepollak coined MemeX", 
-    "Spawniz minted GlitchLord", 
+    "Jessepollak coined MemeX",
+    "Spawniz minted GlitchLord",
     "You bought NFT for 0.003 ETH"
   ];
   if (activityList) {
@@ -94,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => document.body.removeChild(confetti), 1500);
   }
 
-  // XP Mock Update
   if (xpDisplay && streakDisplay) {
     xpDisplay.innerText = "125 XP 🔥";
     streakDisplay.innerText = "Streak: 5 Days";
