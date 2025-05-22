@@ -28,10 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // MOCKED gas fetch
   async function fetchGas() {
     try {
-      const gwei = 8.3;
+      const res = await fetch("https://api.owlracle.info/v4/base/gas");
+      const data = await res.json();
+      const gwei = data.speeds[1].gasPrice / 1e9;
       gasTracker.innerHTML = `<strong>Base Gas:</strong> ${gwei.toFixed(2)} Gwei`;
     } catch {
       gasTracker.innerHTML = `<span style="color:red;">Failed to load gas</span>`;
@@ -41,37 +42,33 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchGas();
   setInterval(fetchGas, 15000);
 
-  // MOCKED leaderboard
   const dummyLeaders = [
-    { name: "Spawniz", xp: 420 },
-    { name: "BaseBoi", xp: 369 },
-    { name: "ZoraMaxxer", xp: 215 }
+    { name: "Spawniz", xp: 350 },
+    { name: "BaseLord", xp: 290 },
+    { name: "ZoraMaxxer", xp: 220 }
   ];
   if (leaderboardList) {
     leaderboardList.innerHTML = dummyLeaders.map((n, i) => `<li>#${i + 1} – ${n.name}: ${n.xp} XP</li>`).join("");
   }
 
-  // MOCKED activity
   const dummyActivity = [
-    "Spawniz coined WarpToken",
-    "You minted MemeX",
-    "BaseBoi traded for 0.01 ETH"
+    "Jessepollak coined MemeX", 
+    "Spawniz minted GlitchLord", 
+    "You bought NFT for 0.003 ETH"
   ];
   if (activityList) {
     activityList.innerHTML = dummyActivity.map(a => `<li>📈 ${a}</li>`).join("");
   }
 
-  // MOCKED feed
   const dummyFeed = [
-    { user: "ZoraMaxxer", action: "minted WarpDrop" },
-    { user: "BaseBoi", action: "coined GAS99" },
-    { user: "Spawniz", action: "bought OnchainChamp" }
+    { user: "BaseLord", action: "minted Token A" },
+    { user: "ZoraMaxxer", action: "coined MemePack" },
+    { user: "Spawniz", action: "bought WarpNFT" }
   ];
   if (feedList) {
     feedList.innerHTML = dummyFeed.map(f => `<li>🔥 <strong>${f.user}</strong> ${f.action}</li>`).join("");
   }
 
-  // MOCKED buy flow
   if (buyBtn) {
     buyBtn.addEventListener("click", () => {
       const amt = document.getElementById("tokenAmount").value;
@@ -97,10 +94,10 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => document.body.removeChild(confetti), 1500);
   }
 
-  // MOCKED XP & Streak
+  // XP Mock Update
   if (xpDisplay && streakDisplay) {
-    xpDisplay.innerText = "1337 XP 🔥";
-    streakDisplay.innerText = "Streak: 7 Days";
+    xpDisplay.innerText = "125 XP 🔥";
+    streakDisplay.innerText = "Streak: 5 Days";
   }
 });
 
