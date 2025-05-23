@@ -126,4 +126,83 @@ li {
 .footer-nav button.active,
 .footer-nav button:hover {
   color: #d4f87f;
+}/* Lägg till detta längst ner i din style.css eller integrera */
+
+.rewards-overview {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+  padding: 1rem 0;
 }
+
+.streak-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.streak-circle {
+  background: #6abd45;
+  color: #1f2b13;
+  font-weight: 900;
+  font-size: 2.5rem;
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+  border-radius: 50%;
+  margin: 0.3rem 0;
+  box-shadow: 0 0 12px #6abd45aa;
+}
+
+.warp-points {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #a2cca8;
+}
+
+.mint-section input[type="number"] {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #3c5a1c;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  background: #142312;
+  color: #e6f1cf;
+}
+
+.mint-section button {
+  width: 100%;
+  background-color: #6abd45;
+  border: none;
+  color: #1f2b13;
+  font-weight: 700;
+  padding: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.mint-section button:hover {
+  background-color: #8cdf63;
+}
+
+.invite-section input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #3c5a1c;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  background: #142312;
+  color: #e6f1cf;
+}
+
+.invite-section p {
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  color: #a2cca8;
+}
+
