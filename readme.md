@@ -3,7 +3,6 @@
 Track and act on wallet behavior with live gas stats, leaderboard, and token simulation.
 
 ## Features
-- Live Base gas tracker (Owlracle API)
 - Wallet connect (MetaMask/Rabby, no wagmi)
 - Mocked leaderboard & activity feed
 - Token buy simulation
