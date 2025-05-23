@@ -1,65 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>WarpAI – Onchain Activity Tracker</title>
-<link rel="stylesheet" href="style.css" />
-<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WarpAI – Onchain Activity Tracker</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header class="app-header">
-  <h1>✨ WarpAI <span class="subtitle">Onchain Activity Tracker</span></h1>
-  <div class="wallet-section">
-    <button id="connectWalletBtn" class="connect-btn">Connect Wallet</button>
-    <div id="walletAddress" class="wallet-address" style="display:none"></div>
-    <div id="xpDisplay" class="xp-display">XP: 0 🔥</div>
-  </div>
-</header>
-
-<main>
-  <section id="tab-home" class="tab-content active">
-    <h2>Onchain Transactions</h2>
-    <ul id="txList" class="tx-list">
-      <li>Connect your wallet to load transactions</li>
-    </ul>
-  </section>
-
-  <section id="tab-rewards" class="tab-content">
-    <h2>Rewards & Mint</h2>
-    <div class="rewards-info">
-      <p>Current XP: <span id="rewardXP">0</span></p>
-      <p>Streak: <span id="rewardStreak">0</span> days</p>
-      <button id="claimXPBtn" class="action-btn">Claim XP</button>
+  <header class="app-header">
+    <div class="header-left">
+      <h1>✨ <span class="warpai">WarpAI</span> <span class="tracker-label">Onchain Tracker</span></h1>
     </div>
-    <div class="mint-section">
-      <input type="number" id="mintAmount" placeholder="ETH amount" min="0.001" step="0.001" />
-      <button id="mintBtn" class="action-btn">Mint WarpAI Token</button>
-      <p id="mintStatus"></p>
+    <div class="header-right">
+      <div id="xpDisplay" class="xp-display">0 XP 🔥</div>
+      <button id="connectWallet" class="connect-btn">Connect Wallet</button>
+      <div id="headerWalletAddress" class="wallet-address"></div>
     </div>
-  </section>
+  </header>
 
-  <section id="tab-leaderboard" class="tab-content">
-    <h2>Leaderboard</h2>
-    <ul id="leaderboardList" class="leaderboard-list"></ul>
-  </section>
+  <main>
+    <section id="home" class="tab-section active">
+      <div class="card">
+        <h2>📊 Activity Feed</h2>
+        <ul id="activityList"></ul>
+      </div>
+      <div class="card">
+        <h2>🔥 Live Feed</h2>
+        <ul id="feedList"></ul>
+      </div>
+    </section>
 
-  <section id="tab-invite" class="tab-content">
-    <h2>Invite Friends</h2>
-    <p>Invite friends and earn <strong>+50 XP</strong>!</p>
-    <input type="text" id="referralLink" readonly />
-    <button id="copyReferralBtn" class="action-btn">Copy Referral Link</button>
-    <p id="copyStatus"></p>
-  </section>
-</main>
+    <section id="notifications" class="tab-section">
+      <div class="card">
+        <h2>🔔 Notifications</h2>
+        <p>No notifications yet.</p>
+      </div>
+    </section>
 
-<nav class="footer-nav">
-  <button data-tab="home" class="footer-tab active">🏠 Home</button>
-  <button data-tab="rewards" class="footer-tab">🎁 Rewards</button>
-  <button data-tab="leaderboard" class="footer-tab">🏆 Leaderboard</button>
-  <button data-tab="invite" class="footer-tab">👥 Invite</button>
-</nav>
+    <section id="leaderboard" class="tab-section">
+      <div class="card">
+        <h2>🏆 Leaderboard</h2>
+        <ul id="leaderboardList"></ul>
+      </div>
+    </section>
 
-<script src="app.js"></script>
+    <section id="rewards" class="tab-section">
+      <div class="card">
+        <h2>🎁 Rewards</h2>
+        <p>Claim your rewards and daily bonuses here!</p>
+        <input type="number" id="tokenAmount" placeholder="ETH amount" />
+        <button id="buyTokenBtn">Mint WarpAI Coin</button>
+        <p id="buyStatus"></p>
+      </div>
+      <div class="card">
+        <h2>🎉 Invite Bonus</h2>
+        <input type="text" id="inviteCode" placeholder="Enter invite code" />
+        <p id="inviteStatus"></p>
+      </div>
+    </section>
+
+    <section id="profile" class="tab-section">
+      <div class="card">
+        <h2>👤 Profile</h2>
+        <p><strong>Wallet:</strong> <span id="headerWalletAddressProfile"></span></p>
+        <p><strong>XP Streak:</strong> <span id="streakDisplay">0 Days</span></p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="footer-nav">
+    <button class="tab-btn active" data-tab="home" onclick="switchTab('home')">🏠 Home</button>
+    <button class="tab-btn" data-tab="notifications" onclick="switchTab('notifications')">🔔 Notifications</button>
+    <button class="tab-btn" data-tab="leaderboard" onclick="switchTab('leaderboard')">🏆 Leaderboard</button>
+    <button class="tab-btn" data-tab="rewards" onclick="switchTab('rewards')">🎁 Rewards</button>
+    <button class="tab-btn" data-tab="profile" onclick="switchTab('profile')">👤 Profile</button>
+  </nav>
+
+  <script src="app.js"></script>
 </body>
 </html>
