@@ -45,17 +45,30 @@
     </section>
 
     <section id="rewards" class="tab-section">
-      <div class="card">
-        <h2>🎁 Rewards</h2>
-        <p>Claim your rewards and daily bonuses here!</p>
-        <input type="number" id="tokenAmount" placeholder="ETH amount" />
-        <button id="buyTokenBtn">Mint WarpAI Coin</button>
+      <div class="card rewards-overview">
+        <h2>🎁 Rewards Overview</h2>
+        <div class="streak-container">
+          <p><strong>Daily Streak:</strong></p>
+          <div class="streak-circle" id="streakCircle">6</div>
+          <p>Days</p>
+        </div>
+        <div class="warp-points">
+          <p><strong>WarpPoints:</strong> <span id="warpPointsDisplay">180 WP</span></p>
+        </div>
+      </div>
+
+      <div class="card mint-section">
+        <h2>🧪 Mint WarpAI Coin</h2>
+        <input type="number" id="tokenAmount" placeholder="ETH amount" min="0" step="0.01" />
+        <button id="buyTokenBtn">Mint</button>
         <p id="buyStatus"></p>
       </div>
-      <div class="card">
+
+      <div class="card invite-section">
         <h2>🎉 Invite Bonus</h2>
         <input type="text" id="inviteCode" placeholder="Enter invite code" />
         <p id="inviteStatus"></p>
+        <p>Invite friends and earn <strong>+50 WP</strong> each!</p>
       </div>
     </section>
 
@@ -64,6 +77,7 @@
         <h2>👤 Profile</h2>
         <p><strong>Wallet:</strong> <span id="headerWalletAddressProfile"></span></p>
         <p><strong>XP Streak:</strong> <span id="streakDisplay">0 Days</span></p>
+        <p><strong>Total XP:</strong> <span id="xpTotalDisplay">0 XP</span></p>
       </div>
     </section>
   </main>
